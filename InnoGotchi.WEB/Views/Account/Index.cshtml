@@ -1,0 +1,100 @@
+﻿@using InnoGotchi.Http.Models
+@using InnoGotchi.WEB.Utility
+@model AuthRequestModel
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var isAut = HttpContextAccessor.HttpContext.Session.Get<bool>("IsAuthorization");
+    ViewBag.Title = "Authorization";
+}
+
+<div class="row d-flex justify-content-center" style="margin-top: 50px">
+
+    <div class="col-md-4">
+        <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link @(isAut?"active":"")" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
+                   aria-controls="pills-login" aria-selected="@(isAut)">Login</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link @(!isAut?"active":"")" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab"
+                   aria-controls="pills-register" aria-selected="@(!isAut)">Register</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane fade @(isAut?"show active":"")" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                <form asp-action="SignIn" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger">
+                    </div>
+
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <div class="form-outline mb-4 validation-error">
+                        <input asp-for="Username" id="loginName" class="form-control" />
+                        <label asp-for="Username" class="form-label" for="loginName">Email or username</label>
+                    </div>
+
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="form-outline mb-4 validation-error">
+                        <input asp-for="Password" type="password" id="loginPassword" class="form-control" />
+                        <label asp-for="Password" class="form-label" for="loginPassword">Password</label>
+                    </div>
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <a asp-action="Forgot">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+                </form>
+            </div>
+            <div class="tab-pane fade @(!isAut?"show active":"")" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                <form asp-action="SignUp" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger">
+
+                    </div>
+
+                    <span asp-validation-for="Username" class="text-danger"></span>
+                    <div class="form-outline mb-4">
+                        <input asp-for="Username" type="email" id="loginName" class="form-control" />
+                        <label asp-for="Username" class="form-label" for="loginName">Email or username</label>
+                    </div>
+
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <div class="form-outline mb-4">
+                        <input asp-for="Name" type="text" id="registerName" class="form-control" />
+                        <label asp-for="Name" class="form-label" for="registerName">Name</label>
+                    </div>
+
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                    <div class="form-outline mb-4">
+                        <input asp-for="Surname" type="text" id="registerSurname" class="form-control" />
+                        <label asp-for="Surname" class="form-label" for="registerSurname">Surname</label>
+                    </div>
+
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="form-outline mb-4">
+                        <input asp-for="Password" type="password" id="registerPassword" class="form-control" />
+                        <label asp-for="Password" class="form-label" for="registerPassword">Password</label>
+                    </div>
+
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    <div class="form-outline mb-4">
+                        <input asp-for="ConfirmPassword" type="password" id="registerRepeatPassword" class="form-control" />
+                        <label asp-for="ConfirmPassword" class="form-label" for="registerRepeatPassword">Repeat password</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mb-3">Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

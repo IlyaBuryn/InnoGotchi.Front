@@ -1,0 +1,10 @@
+﻿@model string
+
+<link rel="stylesheet" href="~/css/modal.css" asp-append-version="true" />
+
+<div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    <strong>Error!</strong> @Model;
+</div>
+
+<script src="~/js/modal.js" asp-append-version="true"></script>
