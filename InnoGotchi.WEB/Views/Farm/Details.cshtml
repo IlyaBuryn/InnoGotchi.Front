@@ -1,0 +1,143 @@
+﻿@using InnoGotchi.Http.Models
+@using InnoGotchi.WEB.Utility
+@model FarmModel
+@{
+    ViewBag.Title = "Farm details";
+    var aliveCount = Model.Pets.Where(x => x.VitalSign != null && x.VitalSign.IsAlive).Count();
+    var deadCount = Model.Pets.Count() - aliveCount;
+}
+
+@await Html.PartialAsync("_FeedingTipPartial")
+
+<section>
+
+    <div class="modal fade" id="PieChartModal" tabindex="-1" aria-labelledby="pieChartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pieChartModalLabel">Alive and dead pets count</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="chart m-5 mb-5">
+                    <canvas id="piechart"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row">
+
+            <div class="col-lg-4 mb-4 d-flex align-items-stretch">
+                <div class="card col-md-12">
+                    <div class="card-body text-center">
+                        <a href="#">
+                            <img src="~/images/barn.png" alt="img" class="img-fluid avatar-img" height: 150px;">
+                        </a>
+
+                        <h4 class="my-3">@Model.Name</h4>
+
+                        @await Html.PartialAsync("_InviteFriendPartial")
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 mb-4 d-flex align-items-stretch">
+                <div class="card col-md-12 w-100">
+                    <div class="card-body">
+
+                        @await Html.PartialAsync("_FarmStatPartial")
+
+                        <div class="row py-4">
+                            <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                                <button type="button" class="btn btn-warning" data-mdb-toggle="modal" data-mdb-target="#PieChartModal">
+                                    <img width="15" src="https://cdn-icons-png.flaticon.com/512/893/893220.png"/>&emsp;
+                                    See Pie chart</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+
+                        <div class="my-3">
+                            <h4>My innogothies</h4>
+                        </div>
+
+                        <div class="row d-flex justify-content-start ">
+                            @foreach (var item in Model.Pets)
+                            {
+                                    <div class="card mb-3" style="height: 450px; width: 350px; margin: 1rem">
+
+                                        @await Html.PartialAsync("_PetDetailsCardHeaderPartial", item)
+                                        @await Html.PartialAsync("_PetDetailsCardFooterPartial", new PetViewModel(item, false))
+
+                                    </div>
+                            }
+
+                            <div class="card mb-3" style="height: 400px; width: 350px; margin: 1rem">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <form asp-action="Create" asp-controller="Pet" method="get">
+                                        <button type="submit" class="btn btn-outline-primary">Create new pet [+]</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var piechartCanvas = document.getElementById("piechart");
+
+    var piechart = new Chart(piechartCanvas, {
+        type: 'pie',
+        data: {
+            labels: ['Alive', "Dead"],
+            datasets: [{
+                    data: ['@aliveCount', '@deadCount'],
+                borderWidth: 0,
+                backgroundColor: [
+                    'rgb(137, 219, 70)',
+                    'rgb(35, 46, 26)'
+                ],
+                hoverBackgroundColor: [
+                    'rgb(157, 232, 95)',
+                    'rgb(54, 69, 43)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: "bottom",
+                labels: {
+                    boxWidth: 11,
+                    fontColor: '#757681',
+                    fontSize: 11
+                }
+            }
+        }
+    });
+</script>

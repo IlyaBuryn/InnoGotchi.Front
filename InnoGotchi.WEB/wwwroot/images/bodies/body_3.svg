@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW 2021.5 (Evaluation Version) -->
+
+<svg
+   xml:space="preserve"
+   width="3000"
+   height="5000"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 3000.0001 5000.0001"
+   id="svg410"
+   sodipodi:docname="body_3.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview412"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="0.097529412"
+   inkscape:cx="1230.3981"
+   inkscape:cy="2993.9686"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_x0020_1" />
+ <defs
+   id="defs398">
+  <style
+   type="text/css"
+   id="style396">
+   <![CDATA[
+    .str0 {stroke:black;stroke-width:27.78;stroke-miterlimit:2.61313}
+    .fil1 {fill:none}
+    .fil0 {fill:#FAF7F7}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1"
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   transform="translate(-4262.3687,-1777.1337)">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <ellipse
+   class="fil0 str0"
+   cx="5760.6963"
+   cy="2786.0137"
+   rx="1085.0789"
+   ry="975.00354"
+   id="ellipse401" />
+  <polyline
+   class="fil1 str0"
+   points="5396.54,3525.54 5448.98,5885.35 4492.75,6949.53 "
+   id="polyline403"
+   transform="matrix(0.95720574,0,0,0.87196358,581.81144,686.7964)" />
+  <line
+   class="fil1 str0"
+   x1="5797.606"
+   y1="5818.6074"
+   x2="6683.3853"
+   y2="6746.5332"
+   id="line405" />
+  <polyline
+   class="fil1 str0"
+   points="4641.75,5034.66 5428.06,4376.24 6203.77,5034.66 "
+   id="polyline407"
+   transform="matrix(0.95720574,0,0,0.87196358,581.81144,686.7964)" />
+ </g>
+</svg>

@@ -1,19 +1,17 @@
 using InnoGotchi.Http.Components;
-using InnoGotchi.Http.HttpServices;
-using InnoGotchi.Http.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews()
     .AddSessionStateTempDataProvider();
 
-builder.Services.AddHttpClient<IIdentityService, IdentityService>();
-
 builder.Services.AddSession(options =>
 {
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddHttpClient();
 
 builder.Services.ConfigurationHttpServices();
 
@@ -27,15 +25,16 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseSession();
-
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",

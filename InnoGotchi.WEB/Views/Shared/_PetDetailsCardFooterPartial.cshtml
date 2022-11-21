@@ -1,0 +1,47 @@
+﻿@using InnoGotchi.Http.Models
+@using InnoGotchi.WEB.Utility.VitalSignLevels
+@model PetViewModel
+@{
+    var hungerLevels = new HungerLevels();
+    var ThirstyLevels = new ThirstyLevels();
+
+    var hungerLvl = hungerLevels.GetByNumber(Model.Pet.VitalSign.HungerLevel);
+    var thirstyLvl = ThirstyLevels.GetByNumber(Model.Pet.VitalSign.ThirsyLevel);
+
+    var isAliveNotDefault = Model.Pet.VitalSign != null && Model.Pet.VitalSign.IsAlive;
+}
+
+<div class="card-footer text-center">
+    @if (isAliveNotDefault)
+    {
+        <div style="z-index: 1234" class="d-flex justify-content-center mb-1">
+            <p class="text-muted mb-0">
+                <img src="https://cdn-icons-png.flaticon.com/512/1139/1139585.png" width="15"/>
+                <span class="badge @hungerLvl.Style">@hungerLvl.Name</span>
+            </p>
+            <p class="text-muted mb-0">&emsp;</p>
+            <p class="text-muted mb-0">
+                <img src="https://cdn-icons-png.flaticon.com/512/2792/2792706.png" width="15"/>
+                <span class="badge @thirstyLvl.Style">@thirstyLvl.Name</span>
+            </p>
+        </div>
+    }
+
+    <div class="d-flex justify-content-center mb-2">
+        <form asp-action="Details" asp-route-pet="@Model.Pet.Id" asp-route-isReadOnly="@Model.IsReadOnly" asp-controller="Pet" class="mx-3" style="margin: 5px">
+            <button class="btn-nerby btn btn-success">Details</button>
+        </form>
+        @if (!Model.IsReadOnly)
+        {
+            @if (isAliveNotDefault)
+            {
+                <form asp-action="FeedPet" asp-route-pet="@Model.Pet.Id" asp-controller="Pet" style="margin: 5px">
+                    <button type="submit" class="btn-nerby btn btn-warning">Feed</button>
+                </form>
+                <form asp-action="DrinkPet" asp-route-pet="@Model.Pet.Id" asp-controller="Pet" style="margin: 5px">
+                    <button type="submit" class="btn-nerby btn btn-primary">Drink</button>
+            </form>
+            }
+        }
+    </div>
+</div>

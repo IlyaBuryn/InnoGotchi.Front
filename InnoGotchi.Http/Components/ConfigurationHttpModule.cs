@@ -8,7 +8,13 @@ namespace InnoGotchi.Http.Components
     {
         private static void ServiceConfiguration(IServiceCollection service)
         {
+            
             service.AddScoped<IIdentityService, IdentityService>();
+            service.AddScoped<IFarmService, FarmService>();
+            service.AddScoped<IPetService, PetService>();
+            service.AddScoped<IBodyPartService, BodyPartService>();
+            service.AddScoped<ICollabService, CollabService>();
+            service.AddScoped<IFeedService, FeedService>();
         }
 
         public static void ConfigurationHttpServices(this IServiceCollection builder)

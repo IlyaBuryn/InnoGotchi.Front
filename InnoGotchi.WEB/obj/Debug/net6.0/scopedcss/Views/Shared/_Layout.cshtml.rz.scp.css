@@ -14,6 +14,10 @@ a[b-1a0uq0wcxl] {
   border-color: #1861ac;
 }
 
+.btn-nerby[b-1a0uq0wcxl] {
+    margin: 5px;
+}
+
 .nav-pills .nav-link.active[b-1a0uq0wcxl], .nav-pills .show > .nav-link[b-1a0uq0wcxl] {
   color: #fff;
   background-color: #1b6ec2;
@@ -28,7 +32,7 @@ a[b-1a0uq0wcxl] {
 }
 
 .box-shadow[b-1a0uq0wcxl] {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .20);
 }
 
 button.accept-policy[b-1a0uq0wcxl] {
@@ -50,7 +54,7 @@ body[b-1a0uq0wcxl] {
 
 @media (min-width: 991.98px) {
     main[b-1a0uq0wcxl] {
-        padding-left: 240px;
+        padding-left: 90px;
     }
 }
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW 2021.5 (Evaluation Version) -->
+
+<svg
+   xml:space="preserve"
+   width="3000"
+   height="5000"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 3000 5000"
+   id="svg1294"
+   sodipodi:docname="mouth_5.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview1296"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="0.19505882"
+   inkscape:cx="1025.3317"
+   inkscape:cy="1189.3848"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_x0020_1" />
+ <defs
+   id="defs1284">
+  <style
+   type="text/css"
+   id="style1282">
+   <![CDATA[
+    .str0 {stroke:#7C0582;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .str1 {stroke:#7C0582;stroke-width:6.94;stroke-miterlimit:2.61313}
+    .fil2 {fill:#7C0582}
+    .fil0 {fill:#A703B0}
+    .fil1 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1"
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   transform="translate(-3823.3548,-2938.2649)">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <ellipse
+   class="fil0 str0"
+   cx="5322.145"
+   cy="3979.2971"
+   rx="298.82755"
+   ry="293.01337"
+   id="ellipse1287" />
+  <path
+   class="fil1 str1"
+   d="m 5270.304,3692.9724 c 17.1878,-2.9978 34.0038,-4.235 51.8344,-4.6917 17.1765,0.083 32.7024,2.0337 50.4091,4.4507 v 135.8228 h -103.6414 c 0.4659,-45.1939 0.9319,-90.3879 1.3979,-135.5818 z"
+   id="path1289" />
+  <path
+   class="fil2"
+   d="m 5322.6778,4054.4894 c 95.5433,0 216.1431,62.9923 216.1431,126.5929 -47.6431,48.8552 -122.3259,91.0811 -217.8692,91.0811 -100.1685,-4.1294 -159.2265,-36.5953 -213.6755,-89.231 0,-63.6029 119.8584,-128.443 215.4016,-128.443 z"
+   id="path1291"
+   style="stroke-width:0.229539" />
+ </g>
+</svg>

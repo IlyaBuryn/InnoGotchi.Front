@@ -1,0 +1,27 @@
+﻿@using InnoGotchi.Http.Models
+@using InnoGotchi.WEB.Utility.VitalSignLevels
+@model PetModel
+@{
+    var bodyPartCount = 4;
+}
+
+<div class="card-header text-center">
+    <span class="fw-bold">Name:&emsp;</span>@Model.Name
+</div>
+
+<div class="card-body text-center">
+    <div class="d-flex justify-content-center">
+        @if (Model.VitalSign != null && Model.VitalSign.IsAlive &&
+            Model.BodyParts != null && Model.BodyParts.Count == bodyPartCount)
+        {
+            <img id="image-overlay" style="z-index: 10; width: 150px" src="@Url.Content(Model.BodyParts[0].Image ?? string.Empty)" />
+            <img id="image-overlay" style="z-index: 20; width: 150px" src="@Url.Content(Model.BodyParts[1].Image ?? string.Empty)" />
+            <img id="image-overlay" style="z-index: 30; width: 150px" src="@Url.Content(Model.BodyParts[2].Image ?? string.Empty)" />
+            <img id="image-overlay" style="z-index: 40; width: 150px" src="@Url.Content(Model.BodyParts[3].Image ?? string.Empty)" />
+        }
+        else
+        {
+            <img src="~/images/grave.png" width="250" />
+        }
+    </div>
+</div>

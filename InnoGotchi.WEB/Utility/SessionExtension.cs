@@ -6,12 +6,19 @@ namespace InnoGotchi.WEB.Utility
     {
         public static void Set<T>(this ISession session, string key, T value)
         {
-            session.SetString(key, JsonConvert.SerializeObject(value));
+            if (value is string && value != null)
+                session.SetString(key, JsonConvert.SerializeObject((value as string).Replace("\"", "")));
+            else
+                session.SetString(key, JsonConvert.SerializeObject(value));
         }
 
         public static T Get<T>(this ISession session, string key)
         {
+
             var value = session.GetString(key);
+
+            //if (value is string && value != null)
+            //    value = value.Replace("\"", "");
 
             return value == null ? default(T) :
                 JsonConvert.DeserializeObject<T>(value);

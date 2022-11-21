@@ -1,0 +1,64 @@
+﻿@using InnoGotchi.Http.Models
+@model PetViewModel
+@{
+    ViewBag.Title = "Pet details";
+}
+
+<section>
+    @if (!Model.IsReadOnly && Model.Pet.VitalSign.IsAlive)
+    {
+        @await Html.PartialAsync("_FeedingTipPartial")
+    }
+    <div class="container py-5">
+        <div class="row">
+
+
+            <div class="col-md-5 mb-6 d-flex align-items-stretch">
+                <div class="card col-md-12">
+                    <div class="card-body text-center d-flex justify-content-center">
+
+                        <img class="image-overlay" id="imageViewBody" style="z-index: 10; width: 200px" src="@Url.Content(Model.Pet.BodyParts[0].Image)" />
+                        <img class="image-overlay" id="imageViewNose" style="z-index: 20; width: 200px" src="@Url.Content(Model.Pet.BodyParts[1].Image)" />
+                        <img class="image-overlay" id="imageViewMouth" style="z-index: 30; width: 200px" src="@Url.Content(Model.Pet.BodyParts[2].Image)" />
+                        <img class="image-overlay" id="imageViewEye" style="z-index: 40; width: 200px" src="@Url.Content(Model.Pet.BodyParts[3].Image)" />
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7 mb-6 d-flex align-items-stretch">
+                <div class="card col-md-12">
+                    <div class="card-body">
+                        @await Html.PartialAsync("_PetStatPartial", Model.Pet)
+
+                        @if (!Model.IsReadOnly && Model.Pet.VitalSign.IsAlive)
+                        {
+                            <hr />
+                            <div class="row">
+                                <div class="col d-flex justify-content-center">
+                                    <form asp-action="FeedPet" asp-controller="Pet" asp-route-pet="@Model.Pet.Id">
+                                        <button type="submit" class="btn btn-warning mx-3">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/1139/1139585.png" width="30"></img>&emsp;Feed me
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    <form asp-action="DrinkPet" asp-controller="Pet" asp-route-pet="@Model.Pet.Id">
+                                        <button type="submit" class="btn btn-primary mx-3">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/2792/2792706.png" width="30"></img>&emsp;Drink me
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <section class="mb-5">
+                            </section>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

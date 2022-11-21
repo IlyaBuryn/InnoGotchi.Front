@@ -1,0 +1,35 @@
+﻿@using InnoGotchi.Http.Models
+@model List<CollaboratorModel>
+@{
+    ViewBag.Title = "My friends farms";
+}
+
+@if (Model == null || Model.Count == 0) {
+    @await Html.PartialAsync("_EmptyResultPartial")
+}
+else {
+    <section>
+        <div class="container py-5">
+            <div class="row">
+
+                <div class="col-lg-12 d-flex align-items-stretch">
+                    <div class="d-flex card col-md-12 justify-content-center">
+                        <div class="card-body">
+
+                            <div class="my-3">
+                                <h4>My friends farms</h4>
+                            </div>
+
+                            <div class="row d-flex justify-content-start ">
+                                @foreach(var item in Model)
+                                {
+                                    @await Html.PartialAsync("_FarmCardPartial", item.Farm);
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

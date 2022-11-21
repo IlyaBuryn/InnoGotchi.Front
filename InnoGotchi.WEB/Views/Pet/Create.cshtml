@@ -1,0 +1,68 @@
+﻿@using InnoGotchi.Http.Models
+@model PetModel
+@{
+    ViewBag.Title = "Create pet";
+}
+
+<section>
+    <div class="container py-5">
+        <div class="row">
+
+            <div class="col-md-6 mb-6 d-flex align-items-stretch">
+                <div class="card col-md-12">
+                    <div class="card-body text-center d-flex justify-content-center">
+
+                        <img class="image-overlay" id="imageViewBody" style="z-index: 10; width: 300px" src="" />
+                        <img class="image-overlay" id="imageViewNose" style="z-index: 20; width: 300px" src="" />
+                        <img class="image-overlay" id="imageViewMouth" style="z-index: 30; width: 300px" src="" />
+                        <img class="image-overlay" id="imageViewEye" style="z-index: 40; width: 300px" src="" />
+                    
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-6 d-flex align-items-stretch">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Create" asp-controller="Pet" method="post">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <p class="mb-0">Pet name:</p>
+                                </div>
+
+                                <div asp-validation-summary="ModelOnly" class="text-danger">
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <input asp-for="Name" type="text" id="petname" class="form-control" />
+                                </div>
+                            </div>
+                            <hr />
+
+                            @await Html.PartialAsync("_BodyPartScrollPartial", Model)
+
+                            <div class="row">
+                                <div class="col d-flex justify-content-end">
+
+                                    <input asp-for="BodyParts[0].Id" id="bpInputBody" type="hidden" value=""/>
+                                    <input asp-for="BodyParts[1].Id" id="bpInputNose" type="hidden" value="" />
+                                    <input asp-for="BodyParts[2].Id" id="bpInputMouth" type="hidden" value="" />
+                                    <input asp-for="BodyParts[3].Id" id="bpInputEye" type="hidden" value="" />
+
+                                    <button class="btn btn-success">Create pet</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

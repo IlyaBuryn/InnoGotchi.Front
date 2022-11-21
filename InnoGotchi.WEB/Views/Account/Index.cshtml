@@ -4,10 +4,13 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var isAut = HttpContextAccessor.HttpContext.Session.Get<bool>("IsAuthorization");
+    var modalMessages = HttpContextAccessor.HttpContext.GetModalMessages();
     ViewBag.Title = "Authorization";
 }
 
 <div class="row d-flex justify-content-center" style="margin-top: 50px">
+
+    @await Html.PartialAsync("ModalWindow", modalMessages)
 
     <div class="col-md-4">
         <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
@@ -15,6 +18,7 @@
                 <a class="nav-link @(isAut?"active":"")" id="tab-login" data-mdb-toggle="pill" href="#pills-login" role="tab"
                    aria-controls="pills-login" aria-selected="@(isAut)">Login</a>
             </li>
+
             <li class="nav-item" role="presentation">
                 <a class="nav-link @(!isAut?"active":"")" id="tab-register" data-mdb-toggle="pill" href="#pills-register" role="tab"
                    aria-controls="pills-register" aria-selected="@(!isAut)">Register</a>
@@ -29,8 +33,8 @@
 
                     <span asp-validation-for="Username" class="text-danger"></span>
                     <div class="form-outline mb-4 validation-error">
-                        <input asp-for="Username" id="loginName" class="form-control" />
-                        <label asp-for="Username" class="form-label" for="loginName">Email or username</label>
+                        <input asp-for="Username" type="email" id="loginName" class="form-control" />
+                        <label asp-for="Username" class="form-label" for="loginName">Email</label>
                     </div>
 
                     <span asp-validation-for="Password" class="text-danger"></span>

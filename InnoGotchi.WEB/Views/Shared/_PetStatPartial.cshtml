@@ -1,0 +1,82 @@
+﻿@using InnoGotchi.Http.Models
+@using InnoGotchi.WEB.Utility.VitalSignLevels
+@using static InnoGotchi.WEB.Utility.VitalSignLevelValues
+@model PetModel
+@{
+    var hungerLevels = new HungerLevels();
+    var ThirstyLevels = new ThirstyLevels();
+    var AgeLevels = new AgeLevels();
+
+    var hungerLvl = hungerLevels.GetByNumber(Model.VitalSign.HungerLevel);
+    var thirstyLvl = ThirstyLevels.GetByNumber(Model.VitalSign.ThirsyLevel);
+    var ageLvl = AgeLevels.GetDefault();
+
+    if ((DateTime.Now - Model.CreationDate).Days >= 2)
+        ageLvl.Name = ((DateTime.Now - Model.CreationDate).Days / 7).ToString() + " years";
+
+    var happyDaysCount = Model.VitalSign.HappinessDaysCount;
+}
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">Name:</p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0">@Model.Name</p>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">Age:</p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0"><span class="badge @ageLvl.Style">@ageLvl.Name</span></p>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">
+            Hunger level:
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0">
+            <img src="https://cdn-icons-png.flaticon.com/512/1139/1139585.png" width="20"></img>
+            &emsp;<span class="badge @hungerLvl.Style">@hungerLvl.Name</span>
+        </p>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">
+            Thirsy level:
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0">
+            <img src="https://cdn-icons-png.flaticon.com/512/2792/2792706.png" width="20"></img>
+            &emsp;<span class="badge @thirstyLvl.Style">@thirstyLvl.Name</span>
+        </p>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">
+            Happiness days:
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0">
+            <img src="https://cdn-icons-png.flaticon.com/512/2584/2584606.png" width="20"></img>
+                &emsp;@happyDaysCount
+        </p>
+    </div>
+</div>

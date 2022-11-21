@@ -15,5 +15,10 @@ namespace InnoGotchi.Http.Models
             Username = model.Username;
             Password = model.Password;
         }
+
+        public LoginModel()
+        {
+
+        }
     }
 }
