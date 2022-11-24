@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW 2021.5 (Evaluation Version) -->
+
+<svg
+   xml:space="preserve"
+   width="3000"
+   height="5000"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 3000 5000"
+   id="svg1217"
+   sodipodi:docname="mouth_3.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview1219"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="0.097529412"
+   inkscape:cx="2624.8492"
+   inkscape:cy="902.29192"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_x0020_1" />
+ <defs
+   id="defs1207">
+  <style
+   type="text/css"
+   id="style1205">
+   <![CDATA[
+    .str2 {stroke:black;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .str0 {stroke:#DB6DB6;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .str1 {stroke:#DB6DB6;stroke-width:13.89;stroke-miterlimit:2.61313}
+    .fil1 {fill:none}
+    .fil0 {fill:#FAA5DE}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1"
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   transform="translate(-2875.4261,-3368.1517)">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <path
+   class="fil0 str0"
+   d="m 4359.6899,4296.9954 c 12.0187,16.7483 37.8063,42.3358 69.4663,70.6847 8.1957,23.2678 17.0277,55.5839 17.0277,91.339 0,90.3224 -36.9646,119.0012 -81.9392,119.0012 -44.9747,0 -93.5813,-27.1629 -93.5813,-117.4835 0,-40.4721 10.3478,-65.3117 20.2144,-91.5589 24.8702,-24.3024 54.2141,-55.2179 68.8121,-71.9825 z"
+   id="path1210" />
+  <path
+   class="fil1 str1"
+   d="m 4359.3077,4297.4352 c -0.9318,39.0987 -8.3489,87.5736 -7.2368,134.6896 0.9301,39.4538 1.1915,52.7829 6.2311,85.5261"
+   id="path1212" />
+  <path
+   class="fil1 str2"
+   d="m 3862.9715,4319.6053 c 38.129,64.0643 155.2034,143.6117 249.0531,144.212 86.6779,0.5533 203.8478,-111.3426 247.1858,-166.5101 39.2068,51.6185 154.5075,152.222 238.5989,152.7592 101.8256,0.6507 178.9776,-23.9816 265.3238,-131.6796"
+   id="path1214" />
+ </g>
+</svg>

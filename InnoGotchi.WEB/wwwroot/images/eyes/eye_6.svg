@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW 2021.5 (Evaluation Version) -->
+
+<svg
+   xml:space="preserve"
+   width="3000"
+   height="5000"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 3000 5000"
+   id="svg1086"
+   sodipodi:docname="eye_6.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview1088"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="0.13792742"
+   inkscape:cx="68.876805"
+   inkscape:cy="891.77337"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_x0020_1" />
+ <defs
+   id="defs1071">
+  <style
+   type="text/css"
+   id="style1069">
+   <![CDATA[
+    .str0 {stroke:black;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .fil1 {fill:none}
+    .fil2 {fill:black}
+    .fil0 {fill:#FF87D7}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1"
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   transform="translate(-1929.315,-2802.6849)">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <ellipse
+   class="fil0 str0"
+   cx="3119.6792"
+   cy="3130.2285"
+   rx="230.22052"
+   ry="225.72804"
+   id="ellipse1074"
+   style="stroke-width:31.7935397;stroke-dasharray:none" />
+  <ellipse
+   class="fil0 str0"
+   cx="3722.6084"
+   cy="3130.2285"
+   rx="230.22052"
+   ry="225.72804"
+   id="ellipse1076"
+   style="stroke-width:31.7935397;stroke-dasharray:none" />
+  <path
+   class="fil1 str0"
+   d="m 3349.8983,3130.2283 c 22.2291,-8.4357 47.0891,-12.2828 70.6336,-12.2828 23.9525,0 37.0293,0.2505 71.8559,12.2828"
+   id="path1078"
+   style="stroke-width:31.7935397;stroke-dasharray:none" />
+  <g
+   id="_3121657213312"
+   transform="matrix(0.14566954,0,0,0.14566954,2605.3812,2493.1994)"
+   style="stroke-width:0.98018886;stroke-dasharray:none">
+   <path
+   class="fil2"
+   d="m 8588.76,3454.61 c -67.32,116.04 -85.22,145.57 -97.1,166.02 79.83,-43.21 171.45,-62.69 68.79,163.6 l -153.09,261.73 c 0,-0.01 97.55,-258.21 123.06,-362.04 -32.11,24.84 -80.96,62.04 -85.94,64.75 -186.17,101.05 51.74,-337.28 55.58,-344.89 14.04,-24.49 45.27,-32.98 69.76,-18.94 24.5,14.04 32.98,45.27 18.94,69.76 z m -52.3,193.63 c -0.02,-0.86 -0.07,-1.65 -0.16,-2.35 -0.08,0.79 -0.02,1.58 0.16,2.35 z"
+   id="path1080"
+   style="stroke-width:0.98018886;stroke-dasharray:none" />
+  </g>
+  <path
+   class="fil1"
+   d="m 3850.0415,2992.7294 c -63.8121,111.3775 50.374,-50.8503 -19.9655,89.8432"
+   id="path1083"
+   style="stroke-width:0.1427831;stroke-dasharray:none" />
+ </g>
+</svg>

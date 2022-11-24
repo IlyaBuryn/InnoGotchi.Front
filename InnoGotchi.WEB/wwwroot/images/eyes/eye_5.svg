@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW 2021.5 (Evaluation Version) -->
+
+<svg
+   xml:space="preserve"
+   width="3000"
+   height="5000"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 3000 4999.9999"
+   id="svg1033"
+   sodipodi:docname="eye_5.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview1035"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="0.27585483"
+   inkscape:cx="1315.9095"
+   inkscape:cy="630.76654"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_x0020_1" />
+ <defs
+   id="defs1019">
+  <style
+   type="text/css"
+   id="style1017">
+   <![CDATA[
+    .str0 {stroke:black;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .str1 {stroke:black;stroke-width:6.94;stroke-miterlimit:2.61313}
+    .fil0 {fill:black}
+    .fil1 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1"
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   transform="translate(-1402.41,-3390.0901)">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <polygon
+   class="fil0 str0"
+   points="4383.25,5448.81 2132.94,5448.81 1806.76,3413.56 5476.4,3413.56 "
+   id="polygon1022"
+   transform="matrix(0.14701754,0,0,0.14701754,2080.7542,3014.9406)" />
+  <polygon
+   class="fil0 str0"
+   points="6835.61,5448.81 9085.91,5448.81 9412.09,3413.56 5742.46,3413.56 "
+   id="polygon1024"
+   transform="matrix(0.14701754,0,0,0.14701754,2080.7542,3014.9406)" />
+  <rect
+   class="fil0 str1"
+   x="2287.4434"
+   y="3513.8533"
+   width="1241.8425"
+   height="24.934175"
+   id="rect1026" />
+  <rect
+   class="fil1 str1"
+   x="2430.8855"
+   y="3592.23"
+   width="32.790791"
+   height="35.77084"
+   id="rect1028" />
+  <rect
+   class="fil1"
+   x="2441.4001"
+   y="3604.2354"
+   width="32.790791"
+   height="35.77084"
+   id="rect1030"
+   style="stroke-width:0.147018" />
+ </g>
+</svg>

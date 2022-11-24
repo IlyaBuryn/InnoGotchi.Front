@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW 2021.5 (Evaluation Version) -->
+
+<svg
+   xml:space="preserve"
+   width="3000"
+   height="5000"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 3000 5000"
+   id="svg1134"
+   sodipodi:docname="mouth_1.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview1136"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="0.27585483"
+   inkscape:cx="1747.2959"
+   inkscape:cy="1145.5301"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_x0020_1" />
+ <defs
+   id="defs1122">
+  <style
+   type="text/css"
+   id="style1120">
+   <![CDATA[
+    .str0 {stroke:#910A0A;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .str1 {stroke:#910A0A;stroke-width:6.94;stroke-miterlimit:2.61313}
+    .fil1 {fill:#BF0B0B}
+    .fil0 {fill:#D93838}
+    .fil2 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1"
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   transform="translate(-3363.205,-2949.3034)">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <path
+   class="fil0 str0"
+   d="m 4847.6932,3798.7686 c 319.6751,0 495.5541,-77.4916 495.5541,59.9135 0,137.4031 -175.879,437.6707 -495.5541,437.6707 -319.675,0 -487.43,-290.1137 -487.43,-427.5167 0,-137.403 167.755,-70.0675 487.43,-70.0675 z"
+   id="path1125" />
+  <path
+   class="fil1"
+   d="m 4847.6932,4292.3408 c 126.9802,0 218.9025,-47.2078 263.1014,-77.9971 -28.2637,-57.8694 -135.3108,-129.4393 -262.2909,-129.4393 -126.9802,0 -254.9714,73.0543 -269.5365,126.9479 55.7511,35.3107 141.7459,80.4885 268.726,80.4885 z"
+   id="path1127"
+   style="stroke-width:0.200594" />
+  <polygon
+   class="fil2 str1"
+   points="6534.78,3074.09 6834.72,3776.66 7169.25,3023.36 "
+   id="polygon1129"
+   transform="matrix(0.20059427,0,0,0.20059427,3681.4442,3181.197)" />
+  <polygon
+   class="fil2 str1"
+   points="5107.2,3078.47 4807.26,3781.04 4472.69,3036.85 "
+   id="polygon1131"
+   transform="matrix(0.20059427,0,0,0.20059427,3681.4442,3181.197)" />
+ </g>
+</svg>
