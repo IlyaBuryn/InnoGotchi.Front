@@ -2,9 +2,8 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var modalMessages = HttpContextAccessor.HttpContext.GetModalMessages();
-    var userRole = HttpContextAccessor.HttpContext.Session.Get<string>("UserRole");
-    var imagePath = HttpContextAccessor.HttpContext.Session.Get<string>("ImagePath") ?? string.Empty;
-    var username = HttpContextAccessor.HttpContext.Session.Get<string>("Username");
+    var user = HttpContextAccessor.HttpContext.Session.Get<SessionUser>("SessionUser");
+    var t = 0;
 }
 
 <!DOCTYPE html>
@@ -41,8 +40,7 @@
                         <i class="fa-solid fa-house-user"></i><span>Home</span>
                     </a>
 
-
-                    @if (userRole != null)
+                    @if (user != null && user.Role != null)
                     {
                         <a asp-action="Index" asp-controller="Farm" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
                             <i class="fa-solid fa-tractor"></i><span>Farms overview</span>
@@ -53,7 +51,7 @@
                         </a>
 
                         <a asp-action="Settings" asp-controller="Account" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-                            <i class="fa-solid fa-file-signature"></i><span>@username</span>
+                            <i class="fa-solid fa-file-signature"></i><span>@user.Username</span>
                         </a>
                     }
                     else
@@ -99,7 +97,7 @@
                     <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
                 </form>
 
-                @if (username == null)
+                @if (user == null)
                 {
 
                     <ul class="navbar-nav ms-auto d-flex flex-row">
@@ -123,7 +121,7 @@
                            role="button"
                            data-mdb-toggle="dropdown"
                            aria-expanded="false">
-                                <img src="@Url.Content(imagePath)"
+                                <img src="@Url.Content(user.Image)"
                                  class="rounded-circle avatar-img"
                                  height="40"
                                  width="40"
@@ -159,7 +157,6 @@
 
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/functions.js" asp-append-version="true"></script>
 

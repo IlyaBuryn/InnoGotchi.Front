@@ -1,10 +1,9 @@
-﻿@using InnoGotchi.Http.Models
+﻿@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.Http.Models
 @using InnoGotchi.WEB.Utility
-@model FarmModel
+@model FarmDto
 @{
     ViewBag.Title = "Farm details";
-    var aliveCount = Model.Pets.Where(x => x.VitalSign != null && x.VitalSign.IsAlive).Count();
-    var deadCount = Model.Pets.Count() - aliveCount;
 }
 
 @await Html.PartialAsync("_FeedingTipPartial")
@@ -20,9 +19,7 @@
                     <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                 </div>
                 
-                <div class="chart m-5 mb-5">
-                    <canvas id="piechart"></canvas>
-                </div>
+                @await Html.PartialAsync("_PieChartPartial", Model.Pets)
 
             </div>
         </div>
@@ -106,38 +103,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    var piechartCanvas = document.getElementById("piechart");
-
-    var piechart = new Chart(piechartCanvas, {
-        type: 'pie',
-        data: {
-            labels: ['Alive', "Dead"],
-            datasets: [{
-                    data: ['@aliveCount', '@deadCount'],
-                borderWidth: 0,
-                backgroundColor: [
-                    'rgb(137, 219, 70)',
-                    'rgb(35, 46, 26)'
-                ],
-                hoverBackgroundColor: [
-                    'rgb(157, 232, 95)',
-                    'rgb(54, 69, 43)'
-                ]
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                position: "bottom",
-                labels: {
-                    boxWidth: 11,
-                    fontColor: '#757681',
-                    fontSize: 11
-                }
-            }
-        }
-    });
-</script>

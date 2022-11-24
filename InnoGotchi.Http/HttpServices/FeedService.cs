@@ -1,34 +1,24 @@
-﻿using InnoGotchi.Http.Components;
+﻿using InnoGotchi.Components.DtoModels;
 using InnoGotchi.Http.Interfaces;
 using InnoGotchi.Http.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 
 namespace InnoGotchi.Http.HttpServices
 {
     public class FeedService : IFeedService
     {
-        private readonly HttpClient _httpClient;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpClientService<FeedDto> _httpServiceHelper;
 
-        private readonly HttpServiceHelper<FeedModel> _httpServiceHelper;
-
-        public FeedService(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public FeedService(IHttpClientService<FeedDto> httpServiceHelper)
         {
-            _httpClient = httpClient;
-            _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
-
-            _httpServiceHelper = new HttpServiceHelper<FeedModel>(_configuration, _httpClient, _httpContextAccessor);
+            _httpServiceHelper = httpServiceHelper;
         }
 
-        public async Task<ResponseModel<int?>> DrinkPet(FeedModel request)
+        public async Task<ResponseModel<int?>> DrinkPet(FeedDto request)
         {
             return await _httpServiceHelper.Post<int?>(request, "feed/water");
         }
 
-        public async Task<ResponseModel<int?>> FeedPet(FeedModel request)
+        public async Task<ResponseModel<int?>> FeedPet(FeedDto request)
         {
             return await _httpServiceHelper.Post<int?>(request, "feed/food");
         }

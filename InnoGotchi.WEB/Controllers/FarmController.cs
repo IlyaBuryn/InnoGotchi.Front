@@ -1,5 +1,6 @@
-﻿using InnoGotchi.Http.Interfaces;
-using InnoGotchi.Http.Models;
+﻿using FluentValidation;
+using InnoGotchi.Components.DtoModels;
+using InnoGotchi.Http.Interfaces;
 using InnoGotchi.WEB.Utility;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -12,47 +13,63 @@ namespace InnoGotchi.WEB.Controllers
         private readonly IPetService _petService;
         private readonly ICollabService _collabService;
         private readonly IFeedService _feedService;
+        private readonly IValidator<SessionUser> _userValidator;
+        private readonly IValidator<SessionFarm> _farmValidator;
 
         public FarmController(IFarmService farmService, IPetService petService,
-            ICollabService collabService, IFeedService feedService)
+            ICollabService collabService, IFeedService feedService,
+            IValidator<SessionUser> userValidator,
+            IValidator<SessionFarm> farmValidator)
         {
             _farmService = farmService;
             _petService = petService;
             _collabService = collabService;
             _feedService = feedService;
+            _userValidator = userValidator;
+            _farmValidator = farmValidator;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userId = HttpContext.Session.Get<int>("UserId");
-            var result = await _farmService.GetFarmByUserId(userId);
+            var user = HttpContext.Session.Get<SessionUser>("SessionUser");
+            if (await HttpContext.IsValidSessionUser(_userValidator) == false)
+                return this.ReturnDueToError(HttpContext, errorMessage: "User vallidation error!");
 
+            var result = await _farmService.GetFarmByUserId(user.Id);
             if (result.Value != null)
-                HttpContext.Session.Set<int>("FarmId", result.Value.Id);
+                await HttpContext.SetSessionFarmData(new SessionFarm(result.Value.Id), _farmValidator);
+
             return View(result.Value);
         }
 
         public async Task<IActionResult> Details()
-        {
-            var userId = HttpContext.Session.Get<int>("UserId");
-            var farmResult = await _farmService.GetFarmByUserId(userId);
-            await FeedingPeriodStat();
-            if (farmResult != null)
-            {
-                var petsResult = await _petService.GetPetsByFarmId(farmResult.Value.Id);
-                farmResult.Value.Pets = petsResult.Value;
-            }
+        { 
+            var farm = HttpContext.Session.Get<SessionFarm>("SessionFarm");
+            if (await HttpContext.IsValidSessionFarm(_farmValidator) == false)
+                return this.ReturnDueToError(HttpContext, errorMessage: "Farm vallidation error!");
+
+            var farmResult = await _farmService.GetFarmByFarmId(farm.Id);
+            if (farmResult.Value == null)
+                return this.ReturnDueToError(HttpContext, errorMessage: farmResult.ErrorMessage);
+
+            var foodPeriod = await _feedService.FeedingFoodPeriod(farm.Id);
+            var drinkPeriod = await _feedService.FeedingDrinkPeriod(farm.Id);
+            HttpContext.Session.Set<double>("AvgFeedingPeriod", foodPeriod.Value ?? 0.0);
+            HttpContext.Session.Set<double>("AvgThirstQuenchingPeriod", drinkPeriod.Value ?? 0.0);
+
+            var petsResult = await _petService.GetPetsByFarmId(farm.Id);
+            farmResult.Value.Pets = petsResult.Value;
             return View(farmResult.Value);
         }
 
         public async Task<IActionResult> ReadOnlyDetails(int id)
         {
-            var farmResult = await _farmService.GetFarmByFarmId((int)id);
-            if (farmResult != null)
-            {
-                var petsResult = await _petService.GetPetsByFarmId(farmResult.Value.Id);
-                farmResult.Value.Pets = petsResult.Value;
-            }
+            var farmResult = await _farmService.GetFarmByFarmId(id);
+            if (farmResult.Value == null)
+                return this.ReturnDueToError(HttpContext, errorMessage: farmResult.ErrorMessage);
+
+            var petsResult = await _petService.GetPetsByFarmId(farmResult.Value.Id);
+            farmResult.Value.Pets = petsResult.Value;
             return View(farmResult.Value);
         }
 
@@ -66,9 +83,9 @@ namespace InnoGotchi.WEB.Controllers
                 return Json(userResponse.ErrorMessage);
             }
 
-            var farmId = HttpContext.Session.Get<int>("FarmId");
+            var farm = HttpContext.Session.Get<SessionFarm>("SessionFarm");
             var collabResponse = await _collabService.CreateCollab(
-                new CollaboratorModel() { IdentityUserId = userResponse.Value.Id, FarmId = farmId });
+                new CollaboratorDto() { IdentityUserId = userResponse.Value.Id, FarmId = farm.Id });
 
             if (collabResponse.Value == null)
             {
@@ -81,24 +98,13 @@ namespace InnoGotchi.WEB.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(FarmModel model)
+        public async Task<IActionResult> Create(FarmDto model)
         {
             var response = await _farmService.CreateFarm(model);
             if (response.Value == null)
-            {
-                HttpContext.SetModalMessage(response.ErrorMessage, ModalMsgType.ErrorMessage);
-            }
+                return this.ReturnDueToError(HttpContext, errorMessage: response.ErrorMessage);
+
             return RedirectToAction(nameof(Index));
-        }
-
-        private async Task FeedingPeriodStat()
-        {
-            var farmId = HttpContext.Session.Get<int>("FarmId");
-            var foodPeriod = await _feedService.FeedingFoodPeriod(farmId);
-            var drinkPeriod = await _feedService.FeedingDrinkPeriod(farmId);
-            HttpContext.Session.Set<double>("AvgFeedingPeriod", foodPeriod.Value ?? 0.0);
-            HttpContext.Session.Set<double>("AvgThirstQuenchingPeriod", drinkPeriod.Value ?? 0.0);
-
         }
     }
 }

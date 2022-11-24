@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ub3HNNlzSu953qDvGIVguxh8v41M2pbTQOyCC3h804Y=",
+  "Hash": "h6vQ+AY7LHuSOcTfF2vysWXMilvVIBIcd3Uzbku+Vo0=",
   "Source": "InnoGotchi.WEB",
   "BasePath": "_content/InnoGotchi.WEB",
   "Mode": "Default",
@@ -202,23 +202,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\bodies\\body_5.svg"
-    },
-    {
-      "Identity": "E:\\Work\\[Innowise]\\InnoGotchi.Back.Repo\\InnoGotchi.Front\\InnoGotchi.WEB\\wwwroot\\images\\chelovek-jajca-gordon-memy-11-360x270.jpg",
-      "SourceId": "InnoGotchi.WEB",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\Work\\[Innowise]\\InnoGotchi.Back.Repo\\InnoGotchi.Front\\InnoGotchi.WEB\\wwwroot\\",
-      "BasePath": "_content/InnoGotchi.WEB",
-      "RelativePath": "images/chelovek-jajca-gordon-memy-11-360x270.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\chelovek-jajca-gordon-memy-11-360x270.jpg"
     },
     {
       "Identity": "E:\\Work\\[Innowise]\\InnoGotchi.Back.Repo\\InnoGotchi.Front\\InnoGotchi.WEB\\wwwroot\\images\\eyes\\eye_1.svg",

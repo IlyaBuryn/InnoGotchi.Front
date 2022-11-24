@@ -1,4 +1,5 @@
 using InnoGotchi.Http.Components;
+using InnoGotchi.WEB.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +14,13 @@ builder.Services.AddSession(options =>
 
 builder.Services.AddHttpClient();
 
+builder.Services.AddDataValidation();
+
 builder.Services.ConfigurationHttpServices();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddMvc().AddSessionStateTempDataProvider();
 
 var app = builder.Build();
 

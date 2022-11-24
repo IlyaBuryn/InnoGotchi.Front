@@ -28,3 +28,8 @@ E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\bin\Debu
 E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\obj\Debug\net6.0\InnoGotchi.WEB.csproj.CopyComplete
 E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\bin\Debug\net6.0\InnoGotchi.Http.dll
 E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\bin\Debug\net6.0\InnoGotchi.Http.pdb
+E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\bin\Debug\net6.0\FluentValidation.dll
+E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\bin\Debug\net6.0\InnoGotchi.Components.dll
+E:\Work\[Innowise]\InnoGotchi.Back.Repo\InnoGotchi.Front\InnoGotchi.WEB\bin\Debug\net6.0\InnoGotchi.Components.pdb

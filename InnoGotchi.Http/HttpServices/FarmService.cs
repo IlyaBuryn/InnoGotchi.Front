@@ -1,44 +1,34 @@
-﻿using InnoGotchi.Http.Components;
+﻿using InnoGotchi.Components.DtoModels;
 using InnoGotchi.Http.Interfaces;
 using InnoGotchi.Http.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 
 namespace InnoGotchi.Http.HttpServices
 {
     public class FarmService : IFarmService
     {
-        private readonly HttpClient _httpClient;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpClientService<FarmDto> _httpServiceHelper;
 
-        private readonly HttpServiceHelper<FarmModel> _httpServiceHelper;
-
-        public FarmService(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public FarmService(IHttpClientService<FarmDto> httpServiceHelper)
         {
-            _httpClient = httpClient;
-            _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
-
-            _httpServiceHelper = new HttpServiceHelper<FarmModel>(_configuration, _httpClient, _httpContextAccessor);
+            _httpServiceHelper = httpServiceHelper;
         }
 
-        public async Task<ResponseModel<int?>> CreateFarm(FarmModel request)
+        public async Task<ResponseModel<int?>> CreateFarm(FarmDto request)
         {
             return await _httpServiceHelper.Post<int?>(request, "farm/create");
         }
 
-        public async Task<ResponseModel<FarmModel>> GetFarmByUserId(int userId)
+        public async Task<ResponseModel<FarmDto>> GetFarmByUserId(int userId)
         {
-            return await _httpServiceHelper.Get<FarmModel>($"farm/user/{userId}");
+            return await _httpServiceHelper.Get<FarmDto>($"farm/user/{userId}");
         }
         
-        public async Task<ResponseModel<FarmModel>> GetFarmByFarmId(int farmId)
+        public async Task<ResponseModel<FarmDto>> GetFarmByFarmId(int farmId)
         {
-            return await _httpServiceHelper.Get<FarmModel>($"farm/{farmId}");
+            return await _httpServiceHelper.Get<FarmDto>($"farm/{farmId}");
         }
 
-        public async Task<ResponseModel<bool?>> UpdateFarm(FarmModel request)
+        public async Task<ResponseModel<bool?>> UpdateFarm(FarmDto request)
         {
             return await _httpServiceHelper.Put<bool?>(request, "farm/update");
         }

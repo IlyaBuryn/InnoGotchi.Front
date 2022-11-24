@@ -1,29 +1,19 @@
-﻿using InnoGotchi.Http.Components;
+﻿using InnoGotchi.Components.DtoModels;
 using InnoGotchi.Http.Interfaces;
 using InnoGotchi.Http.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 
 namespace InnoGotchi.Http.HttpServices
 {
     public class CollabService : ICollabService
     {
-        private readonly HttpClient _httpClient;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IHttpClientService<CollaboratorDto> _httpServiceHelper;
 
-        private readonly HttpServiceHelper<CollaboratorModel> _httpServiceHelper;
-
-        public CollabService(HttpClient httpClient, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public CollabService(IHttpClientService<CollaboratorDto> httpServiceHelper)
         {
-            _httpClient = httpClient;
-            _configuration = configuration;
-            _httpContextAccessor = httpContextAccessor;
-
-            _httpServiceHelper = new HttpServiceHelper<CollaboratorModel>(_configuration, _httpClient, _httpContextAccessor);
+            _httpServiceHelper = httpServiceHelper;
         }
 
-        public async Task<ResponseModel<int?>> CreateCollab(CollaboratorModel request)
+        public async Task<ResponseModel<int?>> CreateCollab(CollaboratorDto request)
         {
             return await _httpServiceHelper.Post<int?>(request, "collab/create");
         }
@@ -33,19 +23,19 @@ namespace InnoGotchi.Http.HttpServices
             return await _httpServiceHelper.Delete<bool?>($"collab/delete/{userId}");
         }
 
-        public async Task<ResponseModel<List<CollaboratorModel>>> GetCollabsByFarm(int farmId)
+        public async Task<ResponseModel<List<CollaboratorDto>>> GetCollabsByFarm(int farmId)
         {
-            return await _httpServiceHelper.Get<List<CollaboratorModel>>($"collab/farm/{farmId}");
+            return await _httpServiceHelper.Get<List<CollaboratorDto>>($"collab/farm/{farmId}");
         }
 
-        public async Task<ResponseModel<List<CollaboratorModel>>> GetCollabsByUser(int userId)
+        public async Task<ResponseModel<List<CollaboratorDto>>> GetCollabsByUser(int userId)
         {
-            return await _httpServiceHelper.Get<List<CollaboratorModel>>($"collab/user/{userId}");
+            return await _httpServiceHelper.Get<List<CollaboratorDto>>($"collab/user/{userId}");
         }
 
-        public async Task<ResponseModel<AuthResponseModel>> GetUserData(string username)
+        public async Task<ResponseModel<CollaboratorDto>> GetUserData(string username)
         {
-            return await _httpServiceHelper.Get<AuthResponseModel>($"account/{username}");
+            return await _httpServiceHelper.Get<CollaboratorDto>($"account/{username}");
         }
     }
 }

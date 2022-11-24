@@ -16,10 +16,6 @@ namespace InnoGotchi.WEB.Utility
         {
 
             var value = session.GetString(key);
-
-            //if (value is string && value != null)
-            //    value = value.Replace("\"", "");
-
             return value == null ? default(T) :
                 JsonConvert.DeserializeObject<T>(value);
         }

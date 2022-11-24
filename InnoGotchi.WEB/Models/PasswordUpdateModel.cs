@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using InnoGotchi.WEB.Utility;
+using System.ComponentModel.DataAnnotations;
 
 namespace InnoGotchi.WEB.Models
 {
@@ -15,5 +16,12 @@ namespace InnoGotchi.WEB.Models
         [Required(ErrorMessage = "Confirmation Password is required.")]
         [Compare("NewPassword", ErrorMessage = "Password and Confirmation Password must match.")]
         public string ConfirmNewPassword { get; set; }
+
+        public PasswordUpdateModel() { }
+
+        public PasswordUpdateModel(SessionUser user)
+        {
+            UserId = user.Id;
+        }
     }
 }

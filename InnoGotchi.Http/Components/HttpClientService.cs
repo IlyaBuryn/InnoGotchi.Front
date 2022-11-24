@@ -1,4 +1,5 @@
-﻿using InnoGotchi.Http.Models;
+﻿using InnoGotchi.Http.Interfaces;
+using InnoGotchi.Http.Models;
 using InnoGotchi.Http.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -8,13 +9,13 @@ using System.Text;
 
 namespace InnoGotchi.Http.Components
 {
-    public class HttpServiceHelper<T>
+    public class HttpClientService<T> : IHttpClientService<T>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
 
-        public HttpServiceHelper(IConfiguration configuration, HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
+        public HttpClientService(IConfiguration configuration, HttpClient httpClient, IHttpContextAccessor httpContextAccessor)
         {
             _configuration = configuration;
             _httpClient = httpClient;

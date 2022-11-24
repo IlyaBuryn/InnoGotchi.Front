@@ -1,5 +1,6 @@
-﻿@using InnoGotchi.Http.Models
-@model PetModel
+﻿@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.Http.Models
+@model PetDto
 
 <div class="row">
     <div class="col-sm-3">
@@ -8,7 +9,7 @@
     <div class="col-sm-9">
 
         <div class="scrollmenu">
-            @foreach (var item in ViewBag.Bodies as List<BodyPartModel>)
+            @foreach (var item in ViewBag.Bodies as List<BodyPartDto>)
             {
                 <a onclick="setImageView('@item.Image','Body','@item.Id')">
                     <img src="@Url.Content(item.Image)" width="60" height="60" class="img-scroll" />
@@ -25,7 +26,7 @@
     </div>
     <div class="col-sm-9">
         <div class="scrollmenu">
-            @foreach (var item in ViewBag.Noses as List<BodyPartModel>)
+            @foreach (var item in ViewBag.Noses as List<BodyPartDto>)
             {
                 <a onclick="setImageView('@item.Image','Nose','@item.Id')">
                     <img src="@Url.Content(item.Image)" width="60" height="60" class="img-scroll" />
@@ -42,7 +43,7 @@
     </div>
     <div class="col-sm-9">
         <div class="scrollmenu">
-            @foreach (var item in ViewBag.Mouths as List<BodyPartModel>)
+            @foreach (var item in ViewBag.Mouths as List<BodyPartDto>)
             {
                 <a onclick="setImageView('@item.Image','Mouth','@item.Id')">
                     <img src="@Url.Content(item.Image)" width="60" height="60" class="img-scroll" />
@@ -59,7 +60,7 @@
     </div>
     <div class="col-sm-9">
         <div class="scrollmenu">
-            @foreach (var item in ViewBag.Eyes as List<BodyPartModel>)
+            @foreach (var item in ViewBag.Eyes as List<BodyPartDto>)
             {
                 <a onclick="setImageView('@item.Image','Eye','@item.Id')">
                     <img src="@Url.Content(item.Image)" width="60" height="60" class="img-scroll" />

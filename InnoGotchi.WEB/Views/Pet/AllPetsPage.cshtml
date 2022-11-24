@@ -1,32 +1,15 @@
-﻿@using InnoGotchi.Http.Components.Enums
+﻿@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.Components.Enums
 @using InnoGotchi.Http.Models
 @using InnoGotchi.WEB.Utility
 @inject IHttpContextAccessor httpContextAccessor
-@model PageIndexViewModel<PetModel>
+@model PageIndexViewModel<PetDto>
 @{
-    ViewBag.Title = "All innogotchi";
     var currentFilter = httpContextAccessor.HttpContext.Session.Get<SortFilter>("CurrentFilter");
     var currentFilterString = currentFilter.ToString();
+    ViewBag.Title = "All innogotchi";
 
 }
-<style>
-    .glyphicon {
-        display: inline-block;
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: inherit;
-        text-rendering: auto;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale
-    }
-
-    .glyphicon-chevron-right:before {
-        content: "\f054";
-    }
-
-    .glyphicon-chevron-left:before {
-        content: "\f053";
-    }
-</style>
 
 <div class="row">
     <div class="col">

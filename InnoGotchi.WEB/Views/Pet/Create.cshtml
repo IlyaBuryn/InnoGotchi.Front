@@ -1,5 +1,6 @@
-﻿@using InnoGotchi.Http.Models
-@model PetModel
+﻿@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.Http.Models
+@model PetDto
 @{
     ViewBag.Title = "Create pet";
 }
@@ -12,10 +13,7 @@
                 <div class="card col-md-12">
                     <div class="card-body text-center d-flex justify-content-center">
 
-                        <img class="image-overlay" id="imageViewBody" style="z-index: 10; width: 300px" src="" />
-                        <img class="image-overlay" id="imageViewNose" style="z-index: 20; width: 300px" src="" />
-                        <img class="image-overlay" id="imageViewMouth" style="z-index: 30; width: 300px" src="" />
-                        <img class="image-overlay" id="imageViewEye" style="z-index: 40; width: 300px" src="" />
+                        @await Html.PartialAsync("_PetImagePartial", 300)
                     
                     </div>
                 </div>

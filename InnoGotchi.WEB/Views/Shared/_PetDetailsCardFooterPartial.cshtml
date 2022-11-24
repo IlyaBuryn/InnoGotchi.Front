@@ -1,12 +1,12 @@
-﻿@using InnoGotchi.Http.Models
-@using InnoGotchi.WEB.Utility.VitalSignLevels
+﻿@using InnoGotchi.Components.Utils.VitalSignLevels
+@using InnoGotchi.Http.Models
 @model PetViewModel
 @{
     var hungerLevels = new HungerLevels();
     var ThirstyLevels = new ThirstyLevels();
 
     var hungerLvl = hungerLevels.GetByNumber(Model.Pet.VitalSign.HungerLevel);
-    var thirstyLvl = ThirstyLevels.GetByNumber(Model.Pet.VitalSign.ThirsyLevel);
+    var thirstyLvl = ThirstyLevels.GetByNumber(Model.Pet.VitalSign.ThirstyLevel);
 
     var isAliveNotDefault = Model.Pet.VitalSign != null && Model.Pet.VitalSign.IsAlive;
 }

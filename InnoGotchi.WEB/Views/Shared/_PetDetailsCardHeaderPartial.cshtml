@@ -1,8 +1,9 @@
-﻿@using InnoGotchi.Http.Models
-@using InnoGotchi.WEB.Utility.VitalSignLevels
-@model PetModel
+﻿@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.Components.Settings
+@using InnoGotchi.Http.Models
+@model PetDto
 @{
-    var bodyPartCount = 4;
+    var bodyPartCount = DefaultSettings.BodyPartCount;
 }
 
 <div class="card-header text-center">

@@ -1,10 +1,9 @@
 ﻿@using InnoGotchi.Http.Models
 @using InnoGotchi.WEB.Utility
 @inject IHttpContextAccessor HttpContextAccessor
-@model IdentityUserModel
+@model SessionUser
 @{
     var modalMessages = HttpContextAccessor.HttpContext.GetModalMessages();
-    var farmExist = HttpContextAccessor.HttpContext.Session.Get<int>("FarmId");
     ViewBag.Title = "Settings";
 }
 

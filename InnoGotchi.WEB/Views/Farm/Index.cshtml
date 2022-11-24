@@ -1,10 +1,11 @@
-﻿@using InnoGotchi.Http.Models
+﻿@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.Http.Models
 @using InnoGotchi.WEB.Utility
 @inject IHttpContextAccessor HttpContextAccessor
-@model FarmModel
+@model FarmDto
 @{
     ViewBag.Title = "Farms overview";
-    var userId = HttpContextAccessor.HttpContext.Session.Get<int>("UserId");
+    var user = HttpContextAccessor.HttpContext.Session.Get<SessionUser>("SessionUser");
 }
 
 
@@ -25,7 +26,7 @@
                         </div>
                         <div class="modal-body">
 
-                            <input asp-for="IdentityUserId" value="@userId" hidden="hidden" class="form-label"></input>
+                            <input asp-for="IdentityUserId" value="@user.Id" hidden="hidden" class="form-label"></input>
 
                             <span asp-validation-for="Name" class="text-danger"></span>
                             <div class="row mb-4">

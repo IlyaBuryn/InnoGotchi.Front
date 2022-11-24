@@ -2,7 +2,8 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @model UserUpdateModel
 @{
-    Model.UserId = HttpContextAccessor.HttpContext.Session.Get<int>("UserId");
+    var user = HttpContextAccessor.HttpContext.Session.Get<SessionUser>("SessionUser");
+    Model.UserId = user.Id;
     ViewBag.Title = "Settings";
 }
 
