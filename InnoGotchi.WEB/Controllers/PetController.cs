@@ -7,7 +7,6 @@ using InnoGotchi.WEB.ActionFilters;
 using InnoGotchi.WEB.Extensions;
 using InnoGotchi.WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 
 namespace InnoGotchi.WEB.Controllers
 {

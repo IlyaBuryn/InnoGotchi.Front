@@ -19,6 +19,7 @@ namespace InnoGotchi.WEB.Controllers
             _webEnv = webEnv;
         }
 
+
         public IActionResult Index(bool isAuth)
         {
             HttpContext.Session.Set("IsAuthorization", isAuth);
@@ -92,11 +93,14 @@ namespace InnoGotchi.WEB.Controllers
         public async Task<IActionResult> UpdateUserInfo(UserUpdateModel model, IFormFile image)
         {
             var user = HttpContext.GetUserFromSession();
+            model.Username = user.Username;
+            model.UserId = user.Id;
 
             var result = await _accountService.ChangeUserInfo(model, image);
             if (result.ItHasErrors())
                 return this.ReturnDueToError(HttpContext, toView: nameof(ChangeUserInfo), toController: "Account", errorMessage: result.Errors[0]);
 
+            user.UpdateUserInfo(result.Value);
             await HttpContext.SetSessionUserData(user);
 
             HttpContext.SetModalMessage("User Name, Surname and Avatar was successfully updated! ", ModalMsgType.SuccessMessage);
@@ -108,6 +112,9 @@ namespace InnoGotchi.WEB.Controllers
         [TypeFilter(typeof(UserValidationFilter), Arguments = new object[] { true, "Index", "Account" })]
         public async Task<IActionResult> UpdateUserPassword(PasswordUpdateModel model)
         {
+            var user = HttpContext.GetUserFromSession();
+            model.Username = user.Username;
+
             var result = await _accountService.ChangePassword(model);
             if (result.ItHasErrors())
                 return this.ReturnDueToError(HttpContext, toView: nameof(ChangePasswordInfo),

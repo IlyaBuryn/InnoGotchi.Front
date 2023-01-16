@@ -1,7 +1,4 @@
 using InnoGotchi.BusinessLogic.Extensions;
-using InnoGotchi.Components.Extensions;
-using InnoGotchi.WEB.Extensions;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,15 +11,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-
-
 builder.Services.AddHttpClient();
 
-builder.Services.AddDataValidation();
-builder.Services.AddBusinessLogicServices();
-
-var assembly = Assembly.Load(new AssemblyName("InnoGotchi.Components"));
-builder.Services.AddValidatorsFromAssembly(assembly);
+builder.Services.ConfigureBusinessLogicLayer();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 

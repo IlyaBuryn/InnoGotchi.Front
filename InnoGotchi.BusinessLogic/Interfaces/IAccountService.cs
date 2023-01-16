@@ -10,6 +10,6 @@ namespace InnoGotchi.BusinessLogic.Interfaces
         public Task<ResponseModel<AuthenticateResponseDto>> SignIn(AuthRequestModel model);
         public Task<ResponseModel<AuthenticateResponseDto>> SignUp(AuthRequestModel model);
         public Task<ResponseModel<bool>> ChangePassword(PasswordUpdateModel model);
-        public Task<ResponseModel<bool>> ChangeUserInfo(UserUpdateModel model, IFormFile image);
+        public Task<ResponseModel<UserUpdateModel>> ChangeUserInfo(UserUpdateModel model, IFormFile image);
     }
 }

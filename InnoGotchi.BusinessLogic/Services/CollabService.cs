@@ -9,10 +9,12 @@ namespace InnoGotchi.BusinessLogic.Services
     {
         private readonly ICollabClient _collabClient;
 
+
         public CollabService(ICollabClient collabClient)
         {
             _collabClient = collabClient;
         }
+
 
         public async Task<ResponseModel<List<CollaboratorDto>>> GetUserCollabs(int userId)
         {

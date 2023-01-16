@@ -13,6 +13,7 @@ namespace InnoGotchi.WEB.Controllers
     {
         private readonly IFarmService _farmService;
 
+
         public FarmController(IFarmService farmService)
         {
             _farmService = farmService;

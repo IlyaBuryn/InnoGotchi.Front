@@ -11,6 +11,7 @@ namespace InnoGotchi.BusinessLogic.BusinessModels
         public string Name { get; set; }
         public string? Surname { get; set; } = string.Empty;
         public string? Image { get; set; } = string.Empty;
+        public string? Username { get; set; } = string.Empty;
 
         public UserUpdateModel() { }
 

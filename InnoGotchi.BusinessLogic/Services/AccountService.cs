@@ -2,13 +2,13 @@
 using InnoGotchi.Components.DtoModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
-using InnoGotchi.DataAccess.Models.IdentityModels;
 using FluentValidation;
 using InnoGotchi.BusinessLogic.SessionEntities;
 using InnoGotchi.DataAccess.Models.ResponseModels;
 using InnoGotchi.BusinessLogic.BusinessModels;
 using InnoGotchi.BusinessLogic.Extensions;
 using InnoGotchi.DataAccess.Interfaces.HttpClients;
+using AutoMapper;
 
 namespace InnoGotchi.BusinessLogic.Services
 {
@@ -18,17 +18,20 @@ namespace InnoGotchi.BusinessLogic.Services
         private readonly IIdentityClient _identityClient;
         private readonly IWebHostEnvironment _webEnv;
         private readonly IValidator<SessionUser> _sessionUserValidator;
+        private readonly IMapper _mapper;
 
 
         public AccountService(IHttpContextAccessor httpContextAccessor, 
             IIdentityClient identityClient, 
             IWebHostEnvironment webEnv, 
-            IValidator<SessionUser> sessionUserValidator)
+            IValidator<SessionUser> sessionUserValidator,
+            IMapper mapper)
         {
             _httpContextAccessor = httpContextAccessor;
             _identityClient = identityClient;
             _webEnv = webEnv;
             _sessionUserValidator = sessionUserValidator;
+            _mapper = mapper;
         }
 
 
@@ -38,20 +41,11 @@ namespace InnoGotchi.BusinessLogic.Services
 
             var user = _httpContextAccessor.HttpContext.GetUserFromSession();
 
-            var loginModel = new LoginModel() { Username = user.Username, Password = model.OldPassword };
-            var loginResponse = await _identityClient.SignIn(loginModel);
+            var loginResponse = await _identityClient.SignIn(_mapper.Map<AuthenticateRequestDto>(model));
             if (loginResponse.ItHasErrorsOrValueIsNull())
                 return result.SetAndReturnError(loginResponse.Error);
 
-            var request = new IdentityUserModel()
-            {
-                Id = model.UserId,
-                Username = user.Username,
-                Password = model.NewPassword,
-                Token = user.Token
-            };
-
-            var updateResponse = await _identityClient.UpdatePassword(request);
+            var updateResponse = await _identityClient.UpdatePassword(_mapper.Map<IdentityUserDto>(model));
             if (updateResponse.ItHasErrorsOrValueIsNull())
                 return result.SetAndReturnError(updateResponse.Error);
 
@@ -60,9 +54,9 @@ namespace InnoGotchi.BusinessLogic.Services
         }
 
 
-        public async Task<ResponseModel<bool>> ChangeUserInfo(UserUpdateModel model, IFormFile image)
+        public async Task<ResponseModel<UserUpdateModel>> ChangeUserInfo(UserUpdateModel model, IFormFile image)
         {
-            var result = new ResponseModel<bool>();
+            var result = new ResponseModel<UserUpdateModel>();
 
             var user = _httpContextAccessor.HttpContext.GetUserFromSession();
 
@@ -81,22 +75,13 @@ namespace InnoGotchi.BusinessLogic.Services
                 imagePath = user.Image;
             }
 
-            var userModel = new IdentityUserModel()
-            {
-                Id = model.UserId,
-                Username = user.Username,
-                Token = user.Token,
-                Name = model.Name,
-                Surname = model.Surname,
-                Image = imagePath,
-            };
+            model.Image = imagePath;
 
-            var updateResponse = await _identityClient.UpdateUserInfo(userModel);
+            var updateResponse = await _identityClient.UpdateUserInfo(_mapper.Map<IdentityUserDto>(model));
             if (updateResponse.ItHasErrorsOrValueIsNull())
                 return result.SetAndReturnError(updateResponse.Error);
 
-            result.Value = (bool)updateResponse.Value;
-            user.UpdateUserInfo(model, imagePath);
+            result.Value = model;
             return result;
         }
 
@@ -105,13 +90,7 @@ namespace InnoGotchi.BusinessLogic.Services
         {
             var result = new ResponseModel<AuthenticateResponseDto>();
 
-            var loginModel = new LoginModel()
-            {
-                Username = model.Username,
-                Password = model.Password,
-        };
-
-            var loginResponse = await _identityClient.SignIn(loginModel);
+            var loginResponse = await _identityClient.SignIn(_mapper.Map<AuthenticateRequestDto>(model));
             if (loginResponse.ItHasErrorsOrValueIsNull())
                 return result.SetAndReturnError(loginResponse.Error);
 
@@ -124,17 +103,7 @@ namespace InnoGotchi.BusinessLogic.Services
         {
             var result = new ResponseModel<AuthenticateResponseDto>();
 
-            var registerModel = new RegisterModel()
-            {
-                Username = model.Username,
-                Password = model.Password,
-                Name = model.Name,
-                Surname = model.Surname,
-                Image = model.Image,
-                IdentityRoleId = model.IdentityRoleId ?? 0,
-            };
-
-            var registerResponse = await _identityClient.SignUp(registerModel);
+            var registerResponse = await _identityClient.SignUp(_mapper.Map<IdentityUserDto>(model));
             if (registerResponse.ItHasErrorsOrValueIsNull())
                 return result.SetAndReturnError(registerResponse.Error);
 

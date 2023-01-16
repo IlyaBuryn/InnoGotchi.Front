@@ -7,15 +7,20 @@ namespace InnoGotchi.BusinessLogic.BusinessModels
     {
         [Required]
         public int UserId { get; set; }
+
         [Required(ErrorMessage = "Old password is required")]
         [MinLength(6)]
         public string OldPassword { get; set; }
+
         [Required(ErrorMessage = "New password is required")]
         [MinLength(6)]
         public string NewPassword { get; set; }
+
         [Required(ErrorMessage = "Confirmation Password is required.")]
         [Compare("NewPassword", ErrorMessage = "Password and Confirmation Password must match.")]
         public string ConfirmNewPassword { get; set; }
+
+        public string? Username { get; set; } = string.Empty;
 
         public PasswordUpdateModel() { }
 

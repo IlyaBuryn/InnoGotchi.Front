@@ -1,44 +1,40 @@
 ﻿using InnoGotchi.Components.DtoModels;
 using InnoGotchi.DataAccess.Interfaces;
 using InnoGotchi.DataAccess.Interfaces.HttpClients;
-using InnoGotchi.DataAccess.Models.IdentityModels;
 using InnoGotchi.DataAccess.Models.ResponseModels;
 
 namespace InnoGotchi.DataAccess.HttpClients
 {
     public class IdentityClient : IIdentityClient
     {
-        private readonly ICustomHttpClient<LoginModel> _httpServiceLoginHelper;
-        private readonly ICustomHttpClient<RegisterModel> _httpServiceRegisterHelper;
-        private readonly ICustomHttpClient<IdentityUserModel> _httpServiceUserHelper;
+        private readonly ICustomHttpClient<AuthenticateRequestDto> _httpLoginClient;
+        private readonly ICustomHttpClient<IdentityUserDto> _httpUserClient;
 
-        public IdentityClient(ICustomHttpClient<LoginModel> httpServiceLoginHelper,
-            ICustomHttpClient<RegisterModel> httpServiceRegisterHelper,
-            ICustomHttpClient<IdentityUserModel> httpServiceUserHelper)
+        public IdentityClient(ICustomHttpClient<AuthenticateRequestDto> httpLoginClient,
+            ICustomHttpClient<IdentityUserDto> httpUserClient)
         {
-            _httpServiceLoginHelper = httpServiceLoginHelper;
-            _httpServiceRegisterHelper = httpServiceRegisterHelper;
-            _httpServiceUserHelper = httpServiceUserHelper;
+            _httpLoginClient = httpLoginClient;
+            _httpUserClient = httpUserClient;
         }
 
-        public async Task<ResponseModel<AuthenticateResponseDto>> SignIn(LoginModel request)
+        public async Task<ResponseModel<AuthenticateResponseDto>> SignIn(AuthenticateRequestDto request)
         {
-            return await _httpServiceLoginHelper.Post<AuthenticateResponseDto>(request, "account/login");
+            return await _httpLoginClient.Post<AuthenticateResponseDto>(request, "account/login");
         }
 
-        public async Task<ResponseModel<AuthenticateResponseDto>> SignUp(RegisterModel request)
+        public async Task<ResponseModel<AuthenticateResponseDto>> SignUp(IdentityUserDto request)
         {
-            return await _httpServiceRegisterHelper.Post<AuthenticateResponseDto>(request, "account/register");
+            return await _httpUserClient.Post<AuthenticateResponseDto>(request, "account/register");
         }
 
-        public async Task<ResponseModel<bool?>> UpdateUserInfo(IdentityUserModel request)
+        public async Task<ResponseModel<bool?>> UpdateUserInfo(IdentityUserDto request)
         {
-            return await _httpServiceUserHelper.Put<bool?>(request, "account/change-user-info");
+            return await _httpUserClient.Put<bool?>(request, "account/change-user-info");
         }
 
-        public async Task<ResponseModel<bool?>> UpdatePassword(IdentityUserModel request)
+        public async Task<ResponseModel<bool?>> UpdatePassword(IdentityUserDto request)
         {
-            return await _httpServiceUserHelper.Put<bool?>(request, "account/change-password");
+            return await _httpUserClient.Put<bool?>(request, "account/change-password");
         }
     }
 }
