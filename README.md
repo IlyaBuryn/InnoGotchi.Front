@@ -11,5 +11,5 @@ To run the application, you need to run the InnoGotchi.WEB project using:
 * Visual Studio  
 or 
 * using the command line terminal
-	* Navigate to the InnoGotchi.WEB/ directory in a terminal and then run dotnet run.
+	* Navigate to the InnoGotchi.WEB/ directory in a terminal and then run `dotnet run`.
 	* Then find in the terminal information about the running server on the local host in the form: https://localhost:7141 or https://localhost:5015
