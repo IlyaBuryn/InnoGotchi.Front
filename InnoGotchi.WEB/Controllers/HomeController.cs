@@ -1,4 +1,4 @@
-﻿using InnoGotchi.WEB.Models;
+﻿using InnoGotchi.WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

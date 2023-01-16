@@ -1,109 +1,86 @@
-﻿using FluentValidation;
+﻿using InnoGotchi.BusinessLogic.Extensions;
+using InnoGotchi.BusinessLogic.Interfaces;
 using InnoGotchi.Components.DtoModels;
 using InnoGotchi.Components.Enums;
 using InnoGotchi.Components.Settings;
-using InnoGotchi.Http.Interfaces;
-using InnoGotchi.WEB.Models;
-using InnoGotchi.WEB.Utility;
+using InnoGotchi.WEB.ActionFilters;
+using InnoGotchi.WEB.Extensions;
+using InnoGotchi.WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
 
 namespace InnoGotchi.WEB.Controllers
 {
     public class PetController : Controller
     {
         private readonly IPetService _petService;
-        private readonly IBodyPartService _bodyPartService;
-        private readonly ICollabService _collabService;
-        private readonly IFeedService _feedService;
-        private readonly IValidator<SessionUser> _userValidator;
-        private readonly IValidator<SessionFarm> _farmValidator;
 
-        public PetController(IPetService petService, IBodyPartService bodyPartService, IFeedService feedService,
-            IValidator<SessionUser> userValidator, IValidator<SessionFarm> farmValidator)
+
+        public PetController(IPetService petService)
         {
             _petService = petService;
-            _bodyPartService = bodyPartService;
-            _feedService = feedService;
-            _userValidator = userValidator;
-            _farmValidator = farmValidator;
         }
+
 
         public IActionResult Index()
         {
             return View();
         }
 
+
         public async Task<IActionResult> Create()
         {
-            var parts = await _bodyPartService.GetBodyParts();
-            ViewData["Bodies"] = parts.Value.Where(x => x.BodyPartTypeId == 1).ToList();
-            ViewData["Noses"] = parts.Value.Where(x => x.BodyPartTypeId == 2).ToList();
-            ViewData["Mouths"] = parts.Value.Where(x => x.BodyPartTypeId == 3).ToList();
-            ViewData["Eyes"] = parts.Value.Where(x => x.BodyPartTypeId == 4).ToList();
+            var bodyPartsResponse = await _petService.BodyPartsForCreatingPetView();
+            if (bodyPartsResponse.ItHasErrors())
+                return this.ReturnDueToError(HttpContext, errorMessage: bodyPartsResponse.Error);
+
+            int i = 1;
+            foreach(var part in bodyPartsResponse.Value)
+            {
+                ViewData[part.Key] = part.Value.Where(x => x.BodyPartTypeId == i).ToList();
+                i++;
+            }
             return View();
         }
 
+
         public async Task<IActionResult> Details(int pet, bool isReadOnly)
         {
-            var petResponse = await _petService.GetPetById(pet);
-            if (petResponse.Value == null)
-                return this.ReturnDueToError(HttpContext, errorMessage: petResponse.ErrorMessage);
+            var petResponse = await _petService.PetDetails(pet);
+            if (petResponse.ItHasErrors())
+                return this.ReturnDueToError(HttpContext, errorMessage: petResponse.Error);
 
             return View(new PetViewModel(petResponse.Value, isReadOnly));
         }
+
 
         public async Task<IActionResult> AllPetsPage(int page, SortFilter sortType = SortFilter.ByHappinessDays)
         {
             HttpContext.Session.Set<SortFilter>("CurrentFilter", sortType);
 
-            var countResponse = await _petService.GetAllPetsCount();
-            if (countResponse.Value == null)
-                return this.ReturnDueToError(HttpContext, errorMessage: countResponse.ErrorMessage);
+            var pageModelResponse = await _petService.PetPage(page, sortType);
+            if (pageModelResponse.ItHasErrors())
+                return this.ReturnDueToError(HttpContext, errorMessage: pageModelResponse.Error);
 
-            var pageResponse = await _petService.GetAllPets(page, sortType);
-            if (pageResponse.Value == null)
-                return this.ReturnDueToError(HttpContext, errorMessage: pageResponse.ErrorMessage);
-
-            var pageViewModel = new PageViewModel((int)countResponse.Value, page, DefaultSettings.PageSize);
+            var pageViewModel = new PageViewModel((int)pageModelResponse.Value.TotalPets, page, DefaultSettings.PageSize);
             var petsModel = new PageIndexViewModel<PetDto> { 
                 PageViewModel = pageViewModel,
-                Items = pageResponse.Value
+                Items = pageModelResponse.Value.PetsOnPage,
             };
 
             return View(petsModel);
         }
 
+
+        [TypeFilter(typeof(UserValidationFilter))]
         public async Task<IActionResult> FeedPet(int pet)
         {
-            var user = HttpContext.Session.Get<SessionUser>("SessionUser");
-            if (await HttpContext.IsValidSessionUser(_userValidator) == false)
-                return this.ReturnDueToError(HttpContext, errorMessage: "User validation error!");
+            var user = HttpContext.GetUserFromSession();
 
-            var request = new FeedDto(pet, user.Id);
-
-            var response = await _feedService.FeedPet(request);
-            if (response.Value == null)
+            var feedResponse = await _petService.FeedPet(new FeedDto(pet, user.Id));
+            if (feedResponse.ItHasErrors())
             {
-                HttpContext.SetModalMessage(response.ErrorMessage, ModalMsgType.ErrorMessage);
-                return RedirectToAction(nameof(Details), new { pet });
-            }
-
-            HttpContext.SetModalMessage("", ModalMsgType.SuccessMessage);
-            return RedirectToAction(nameof(Details), new { pet });
-        }
-
-        public async Task<IActionResult> DrinkPet(int pet)
-        {
-            var user = HttpContext.Session.Get<SessionUser>("SessionUser");
-            if (await HttpContext.IsValidSessionUser(_userValidator) == false)
-                return this.ReturnDueToError(HttpContext, errorMessage: "User vallidation error!");
-
-            var request = new FeedDto(pet, user.Id);
-
-            var response = await _feedService.DrinkPet(request);
-            if (response.Value == null)
-            {
-                HttpContext.SetModalMessage(response.ErrorMessage, ModalMsgType.ErrorMessage);
+                HttpContext.SetModalMessage(feedResponse.Error, ModalMsgType.ErrorMessage);
                 return RedirectToAction(nameof(Details), new { pet });
             }
             else
@@ -113,27 +90,38 @@ namespace InnoGotchi.WEB.Controllers
             }
         }
 
+
+        [TypeFilter(typeof(UserValidationFilter))]
+        public async Task<IActionResult> DrinkPet(int pet)
+        {
+            var user = HttpContext.GetUserFromSession();
+
+            var feedResponse = await _petService.DrinkPet(new FeedDto(pet, user.Id));
+            if (feedResponse.ItHasErrors())
+            {
+                HttpContext.SetModalMessage(feedResponse.Error, ModalMsgType.ErrorMessage);
+                return RedirectToAction(nameof(Details), new { pet });
+            }
+            else
+            {
+                HttpContext.SetModalMessage("", ModalMsgType.SuccessMessage);
+                return RedirectToAction(nameof(Details), new { pet });
+            }
+        }
+
+
         [HttpPost]
+        [TypeFilter(typeof(FarmValidationFilter))]
         public async Task<IActionResult> Create(PetDto model)
         {
-            var farm = HttpContext.Session.Get<SessionFarm>("SessionFarm");
-            if (await HttpContext.IsValidSessionFarm(_farmValidator) == false)
-                return this.ReturnDueToError(HttpContext, errorMessage: "Farm vallidation error!");
-
+            var farm = HttpContext.GetFarmFromSession();
             model.FarmId = farm.Id;
 
-            ModelState.Remove("VitalSign");
-            ModelState.Remove("Farm");
-
-            if (!ModelState.IsValid)
-                return this.ReturnDueToError(HttpContext, toView: nameof(Create), toController: "Pet");
-
-            model.VitalSign = new VitalSignDto();
             var response = await _petService.CreatePet(model);
-            if (response.Value == null)
-                return this.ReturnDueToError(HttpContext, toView: nameof(Create), toController: "Pet", errorMessage: response.ErrorMessage);
+            if (response.ItHasErrors())
+                return this.ReturnDueToError(HttpContext, toView: nameof(Create), toController: "Pet", errorMessage: response.Error);
 
-            HttpContext.SetModalMessage("Pet was successfully created!", ModalMsgType.SuccessMessage);
+            HttpContext.SetModalMessage($"Pet was successfully created!", ModalMsgType.SuccessMessage);
             return RedirectToAction("Details", "Farm");
         }
     }

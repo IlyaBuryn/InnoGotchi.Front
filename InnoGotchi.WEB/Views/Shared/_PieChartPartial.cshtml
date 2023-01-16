@@ -1,5 +1,4 @@
 ﻿@using InnoGotchi.Components.DtoModels
-@using InnoGotchi.Http.Models
 @model IEnumerable<PetDto>
 @{
     var aliveCount = Model.Where(x => x.VitalSign != null && x.VitalSign.IsAlive).Count();
