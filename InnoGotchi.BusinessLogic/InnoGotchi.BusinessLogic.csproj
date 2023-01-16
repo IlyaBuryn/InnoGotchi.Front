@@ -16,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\InnoGotchi.Components\InnoGotchi.Components.csproj" />
     <ProjectReference Include="..\InnoGotchi.DataAccess\InnoGotchi.DataAccess.csproj" />
-    <ProjectReference Include="..\InnoGotchi.Http\InnoGotchi.DataAccess.csproj" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
