@@ -1,0 +1,119 @@
+﻿@using InnoGotchi.BusinessLogic.Extensions
+@using InnoGotchi.BusinessLogic.SessionEntities
+@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.WEB.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@model FarmDto
+@{
+    ViewBag.Title = "Farms overview";
+    var user = HttpContextAccessor.HttpContext.Session.Get<SessionUser>("SessionUser");
+}
+
+
+@if (Model == null)
+{
+    <section style="margin-top: 10rem">
+
+        <div class="modal fade" id="createFarmModal" tabindex="-1" aria-labelledby="createFarmModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createFarmModalLabel">Create new Farm</h5>
+                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form asp-action="Create" asp-controller="Farm" enctype="multipart/form-data" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger">
+                        </div>
+                        <div class="modal-body">
+
+                            <input asp-for="IdentityUserId" value="@user.Id" hidden="hidden" class="form-label"></input>
+
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                            <div class="row mb-4">
+
+                                <div class="col-sm d-flex align-items-center">
+                                    <div class="form-outline">
+                                        Name:
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-7">
+                                    <div class="form-outline">
+                                        <input asp-for="Name" type="text" value="" id="setName" class="form-control border" />
+                                        <label asp-for="Name" hidden="hidden" class="form-label" for="setName"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+
+            <div class="card d-flex align-items-center justify-content-center" style="height: 200px; width: 400px">
+                <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#createFarmModal">Create farm [+]</button>
+            </div>
+
+
+        </div>
+    </section>
+}
+else
+{
+    <h2>Farms overview</h2>
+    <section style="margin-top: 6rem">
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+
+                <div class="card mb-3" style="height: 400px; width: 400px">
+                    <div class="card-header text-center">
+                        <span class="fw-bold">Name:&emsp;</span>@Model.Name
+                    </div>
+                    <div class="card-body text-center">
+                        <img class="img-fluid" src="~/images/barn.png" width="200" />
+                    </div>
+                    <div class="card-footer text-center">
+                        <form asp-action="Details" asp-controller="Farm">
+                            <button type="submit" class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#createFarmModal">Farm details</button>
+                        </form>
+                    </div>
+                    
+                </div>
+    
+            </div>
+
+            <div class="col d-flex justify-content-center">
+
+                <div class="card mb-3" style="height: 400px; width: 400px">
+                    <div class="card-header text-center fw-bold">
+                        Farm collaborations
+                    </div>
+                    <div class="card-body text-center">
+                        <img class="img-fluid" src="https://www.iconpacks.net/icons/1/free-user-group-icon-296-thumb.png" width="200" />
+                    </div>
+                    <div class="card-footer text-center">
+                        <form asp-action="Index" asp-controller="Collab">
+                            <button type="submit" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#createFarmModal">Farm details</button>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

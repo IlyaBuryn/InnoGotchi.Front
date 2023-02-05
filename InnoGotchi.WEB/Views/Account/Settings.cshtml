@@ -1,0 +1,110 @@
+﻿@using InnoGotchi.BusinessLogic.SessionEntities
+@using InnoGotchi.WEB.Extensions
+@using InnoGotchi.WEB.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@model SessionUser
+@{
+    var modalMessages = HttpContextAccessor.HttpContext.GetModalMessages();
+    ViewBag.Title = "Settings";
+}
+
+@await Html.PartialAsync("ModalWindow", modalMessages)
+
+<section>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+
+                <div class="card mb-4"> 
+                    <div class="card-body text-center">
+                        <a asp-action="ChangeUserInfo" asp-controller="Account">
+                            <img src="@Url.Content(Model.Image)" alt="img" class="rounded-circle img-fluid avatar-img" style="width: 150px; height: 150px;">
+                        </a>
+
+                        <h5 class="my-3">Hi @Model.Name</h5>
+                        <p class="text-muted mb-1">@Model.Role</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <form asp-action="ChangePasswordInfo" asp-controller="Account">
+                                <button type="submit" class="btn-nerby btn btn-primary">Change password</button>
+                            </form>
+                            <form asp-action="Logout" asp-controller="Account">
+                                <button type="submit" class="btn-nerby btn btn-outline-primary ms-1">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4 mb-lg-0">
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <h5 class="my-3">My Farm</h5>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <form asp-action="Index" asp-controller="Farm">
+                                        <button type="submit" class="btn btn-primary">Go to farm</button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Name</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="text-muted mb-0">@Model.Name</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <a asp-action="ChangeUserInfo" asp-controller="Account">Change</a>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Surname</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="text-muted mb-0">@Model.Surname</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <a asp-action="ChangeUserInfo" asp-controller="Account">Change</a>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="text-muted mb-0">@Model.Username</p>
+                            </div>
+                        </div>
+
+                        @if (Model.Role == "Admin")
+                        {
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Token</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">@Model.Token</p>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

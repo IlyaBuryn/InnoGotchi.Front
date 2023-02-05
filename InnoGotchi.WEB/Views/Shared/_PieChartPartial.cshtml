@@ -1,0 +1,45 @@
+﻿@using InnoGotchi.Components.DtoModels
+@model IEnumerable<PetDto>
+@{
+    var aliveCount = Model.Where(x => x.VitalSign != null && x.VitalSign.IsAlive).Count();
+    var deadCount = Model.Count() - aliveCount;
+}
+
+<div class="chart m-5 mb-5">
+    <canvas id="piechart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var piechartCanvas = document.getElementById("piechart");
+
+    var piechart = new Chart(piechartCanvas, {
+        type: 'pie',
+        data: {
+            labels: ['Alive', "Dead"],
+            datasets: [{
+                data: ['@aliveCount', '@deadCount'],
+                borderWidth: 0,
+                backgroundColor: [
+                    'rgb(137, 219, 70)',
+                    'rgb(35, 46, 26)'
+                ],
+                hoverBackgroundColor: [
+                    'rgb(157, 232, 95)',
+                    'rgb(54, 69, 43)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: "bottom",
+                labels: {
+                    boxWidth: 11,
+                    fontColor: '#757681',
+                    fontSize: 11
+                }
+            }
+        }
+    });
+</script>

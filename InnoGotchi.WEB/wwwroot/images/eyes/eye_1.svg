@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW 2021.5 (Evaluation Version) -->
+
+<svg
+   xml:space="preserve"
+   width="3000"
+   height="5000"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 3000 5000"
+   id="svg737"
+   sodipodi:docname="eye_1.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview739"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="0.13792742"
+   inkscape:cx="2204.0578"
+   inkscape:cy="2080.8045"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_x0020_1" />
+ <defs
+   id="defs725">
+  <style
+   type="text/css"
+   id="style723">
+   <![CDATA[
+    .str0 {stroke:#828282;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .str1 {stroke:black;stroke-width:6.94;stroke-miterlimit:2.61313}
+    .fil1 {fill:black}
+    .fil0 {fill:white}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1"
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   transform="translate(-2797.2651,-2013.7751)">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <ellipse
+   class="fil0 str0"
+   cx="4459.7456"
+   cy="2290.4141"
+   rx="156.35028"
+   ry="216.02538"
+   id="ellipse728" />
+  <ellipse
+   class="fil0 str0"
+   cx="4181.6558"
+   cy="2273.093"
+   rx="176.63995"
+   ry="241.08928"
+   id="ellipse730" />
+  <ellipse
+   class="fil1 str1"
+   cx="4179.043"
+   cy="2285.0278"
+   rx="39.385429"
+   ry="57.288567"
+   id="ellipse732" />
+  <ellipse
+   class="fil1 str1"
+   cx="4453.7778"
+   cy="2287.0605"
+   rx="35.805042"
+   ry="53.708187"
+   id="ellipse734" />
+ </g>
+</svg>

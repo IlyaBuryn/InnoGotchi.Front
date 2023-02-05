@@ -1,0 +1,82 @@
+﻿@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.Components.Settings
+@using InnoGotchi.Components.Utils.VitalSignLevels
+@model PetDto
+@{
+    var hungerLevels = new HungerLevels();
+    var thirstyLevels = new ThirstyLevels();
+    var ageLevels = new AgeLevels();
+
+    var hungeCurrentrLvl = hungerLevels.GetByNumber(Model.VitalSign.HungerLevel);
+    var thirstyCurrentLvl = thirstyLevels.GetByNumber(Model.VitalSign.ThirstyLevel);
+    var ageCurrentLvl = ageLevels.GetDefault();
+
+    if ((DateTime.Now - Model.CreationDate).Days >= DefaultSettings.NewBornDaysStage)
+        ageCurrentLvl.Name = ((DateTime.Now - Model.CreationDate).Days / 7).ToString() + " years";
+
+    var happyDaysCount = (Model.VitalSign.HappinessDaysCount * DefaultSettings.StarvingPeriodInHours) / 24.0;
+}
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">Name:</p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0">@Model.Name</p>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">Age:</p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0"><span class="badge @ageCurrentLvl.Style">@ageCurrentLvl.Name</span></p>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">
+            Hunger level:
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0">
+            <img src="https://cdn-icons-png.flaticon.com/512/1139/1139585.png" width="20"></img>
+            &emsp;<span class="badge @hungeCurrentrLvl.Style">@hungeCurrentrLvl.Name</span>
+        </p>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">
+            Thirsy level:
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0">
+            <img src="https://cdn-icons-png.flaticon.com/512/2792/2792706.png" width="20"></img>
+            &emsp;<span class="badge @thirstyCurrentLvl.Style">@thirstyCurrentLvl.Name</span>
+        </p>
+    </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-4">
+        <p class="mb-0">
+            Happiness days:
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <p class="text-muted mb-0">
+            <img src="https://cdn-icons-png.flaticon.com/512/2584/2584606.png" width="20"></img>
+                &emsp;@Math.Round(happyDaysCount, 2)
+        </p>
+    </div>
+</div>

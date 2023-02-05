@@ -1,0 +1,64 @@
+﻿@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.WEB.Utility
+@using InnoGotchi.WEB.ViewModels
+@model FarmDto
+@{
+    ViewBag.Title = "Farm details";
+}
+<section>
+    <div class="container py-5">
+        <div class="row">
+
+            <div class="col-lg-4 mb-4 d-flex align-items-stretch">
+                <div class="card col-md-12">
+                    <div class="card-body text-center">
+                        <a href="#">
+                            <img src="~/images/barn.png" alt="img" class="img-fluid avatar-img" height: 150px;">
+                        </a>
+                        <h4 class="my-3">@Model.Name</h4>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 mb-4 d-flex align-items-stretch">
+                <div class="card col-md-12 w-100">
+                    <div class="card-body">
+                        @await Html.PartialAsync("_FarmStatPartial")
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                    <div class="card-body">
+
+                        <div class="my-3">
+                            <h4>Farm innogothies</h4>
+                        </div>
+
+                        <div class="row d-flex justify-content-start ">
+                            @foreach (var item in Model.Pets)
+                            {
+                                <div class="card mb-3" style="height: 450px; width: 350px; margin: 1rem">
+
+                                    @await Html.PartialAsync("_PetDetailsCardHeaderPartial", item)
+                                    @await Html.PartialAsync("_PetDetailsCardFooterPartial", new PetViewModel(item, false))
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

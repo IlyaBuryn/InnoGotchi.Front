@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW 2021.5 (Evaluation Version) -->
+
+<svg
+   xml:space="preserve"
+   width="3000in"
+   height="5000in"
+   version="1.1"
+   style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision;text-rendering:geometricPrecision"
+   viewBox="0 0 3000000.1 4999999.8"
+   id="svg1463"
+   sodipodi:docname="nose_4.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+   id="namedview1465"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   inkscape:document-units="in"
+   showgrid="false"
+   inkscape:zoom="0.01"
+   inkscape:cx="144200"
+   inkscape:cy="59700"
+   inkscape:window-width="1920"
+   inkscape:window-height="1009"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_x0020_1"><inkscape:grid
+     type="xygrid"
+     id="grid3269" /></sodipodi:namedview>
+ <defs
+   id="defs1453">
+  <style
+   type="text/css"
+   id="style1451">
+   <![CDATA[
+    .str1 {stroke:#291404;stroke-width:41.67;stroke-miterlimit:2.61313}
+    .str0 {stroke:#65CF83;stroke-width:20.83;stroke-miterlimit:2.61313}
+    .fil1 {fill:#471F01}
+    .fil0 {fill:#6ADE8B}
+   ]]>
+  </style>
+ </defs>
+ <g
+   id="Layer_x0020_1"
+   inkscape:label="Layer 1"
+   inkscape:groupmode="layer"
+   transform="translate(-3820.1151,-3081.2251)">
+  <metadata
+   id="CorelCorpID_0Corel-Layer" />
+  <path
+   class="fil0 str0"
+   d="m 1710082.3,738265.94 c 9555.8,0 30511.2,-5915.79 39377,-9063.84 6954.8,13169.73 -3398.1,60590.52 -3398.1,81302.97 0,27174.39 -6205.8,60619.12 -15874.4,54631.84 -9912.6,-6138.82 -4208.6,-12798.03 -12443.8,-10487.75 -2434.5,683.36 2321.9,30379.65 -7660.7,28094.98 -12092.1,-2767.73 -13976.5,-93294.63 -19146.2,-99076.05 -6208.6,-6942.29 -9244.3,36481.27 -11426.6,40046.75 -10983.7,17939 -22270.7,11013.86 -24061,-9492.73 -794.5,-9095.29 -177.2,-14808.09 -177.2,-18453.64 0,-12575.02 -4780.5,-58314.56 -1967.4,-68610.75 20483,9309.74 43169.7,11108.22 56778.4,11108.22 z"
+   id="path1456" />
+  <ellipse
+   class="fil1 str1"
+   cx="1297704"
+   cy="629585.56"
+   rx="114118.16"
+   ry="107164.97"
+   id="ellipse1458" />
+  <ellipse
+   class="fil1 str1"
+   cx="1703785.4"
+   cy="628250.31"
+   rx="116772.84"
+   ry="109658.23"
+   id="ellipse1460" />
+ </g>
+</svg>

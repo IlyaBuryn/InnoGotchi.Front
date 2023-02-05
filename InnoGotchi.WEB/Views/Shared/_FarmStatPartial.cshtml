@@ -1,0 +1,99 @@
+﻿@using InnoGotchi.BusinessLogic.Extensions
+@using InnoGotchi.Components.DtoModels
+@using InnoGotchi.Components.Settings
+@using InnoGotchi.WEB.Utility
+@inject IHttpContextAccessor httpContextAccessor
+@model FarmDto
+@{
+    int petsCount = 0, aliveCount = 0, deadCount = 0;
+    double avgFeedingPeriod = 0, avgThirstQuenchingPeriod = 0,
+        avgHappyDays = 0, avgAge = 0;
+
+    if (Model.Pets != null && Model.Pets.Count() != 0)
+    {
+        petsCount = Model.Pets.Count();
+        aliveCount = Model.Pets.Where(x => x.VitalSign != null && x.VitalSign.IsAlive).Count();
+        deadCount = petsCount - aliveCount;
+
+        avgFeedingPeriod = httpContextAccessor.HttpContext.Session.Get<double>("AvgFeedingPeriod");
+        avgThirstQuenchingPeriod = httpContextAccessor.HttpContext.Session.Get<double>("AvgThirstQuenchingPeriod");
+        avgHappyDays = Model.Pets.Where(x => x.VitalSign != null)
+               .Average(x => x.VitalSign.HappinessDaysCount * DefaultSettings.StarvingPeriodInHours) / 24;
+        avgAge = Model.Pets.Where(x => x.VitalSign != null)
+                .Average(x => (DateTime.Now - x.CreationDate).Days / 7);
+    }
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <p class="mb-0">All pets count:</p>
+    </div>
+    <div class="col-sm-6 text-center">
+        <p class="text-muted mb-0">@petsCount</p>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-sm-6">
+        <p class="mb-0">Alive pets count:</p>
+    </div>
+    <div class="col-sm-6 text-center">
+        <p class="text-muted mb-0">
+            <span class="badge rounded-pill badge-success">@aliveCount</span>
+        </p>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-sm-6">
+        <p class="mb-0">Dead pets count:</p>
+    </div>
+    <div class="col-sm-6 text-center">
+        <p class="text-muted mb-0">
+            <span class="badge rounded-pill badge-secondary">@deadCount</span>
+        </p>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-sm-6">
+        <p class="mb-0">Average feeding period</p>
+    </div>
+    <div class="col-sm-6 text-center">
+        <p class="text-muted mb-0">@Math.Round(avgFeedingPeriod, 2) hours</p>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-sm-6">
+        <p class="mb-0">Average thirst quenching period</p>
+    </div>
+    <div class="col-sm-6 text-center">
+        <p class="text-muted mb-0">@Math.Round(avgThirstQuenchingPeriod, 2) hours</p>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-sm-6">
+        <p class="mb-0">Average pet’s happiness days count</p>
+    </div>
+    <div class="col-sm-6 text-center">
+        <p class="text-muted mb-0">@Math.Round(avgHappyDays, 2)</p>
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    <div class="col-sm-6">
+        <p class="mb-0">Average pet’s age</p>
+    </div>
+    <div class="col-sm-6 text-center">
+        <p class="text-muted mb-0">@Math.Round(avgAge, 2) year</p>
+    </div>
+</div>
+<hr />

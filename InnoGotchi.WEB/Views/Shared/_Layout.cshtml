@@ -1,0 +1,161 @@
+﻿@using InnoGotchi.BusinessLogic.Extensions
+@using InnoGotchi.BusinessLogic.SessionEntities
+@using InnoGotchi.WEB.Extensions
+@using InnoGotchi.WEB.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var modalMessages = HttpContextAccessor.HttpContext.GetModalMessages();
+    var user = HttpContextAccessor.HttpContext.Session.Get<SessionUser>("SessionUser");
+    var t = 0;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - InnoGotchi.WEB</title>
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/InnoGotchi.WEB.styles.css" asp-append-version="true" />
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.css"
+          rel="stylesheet" />
+</head>
+
+
+<body>
+    
+    <header>
+
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4">
+
+
+                    <a class="list-group-item list-group-item-action py-2 ripple" asp-area="" asp-controller="Home" asp-action="Index" aria-current="true">
+                        <i class="fa-solid fa-house-user"></i><span>Home</span>
+                    </a>
+
+                    @if (user != null && user.Role != null)
+                    {
+                        <a asp-action="Index" asp-controller="Farm" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                            <i class="fa-solid fa-tractor"></i><span>Farms overview</span>
+                        </a>
+
+                        <a asp-action="AllPetsPage" asp-controller="Pet" asp-route-page="1" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                            <i class="fa-solid fa-paw"></i><span>All Innogotchi list</span>
+                        </a>
+
+                        <a asp-action="Settings" asp-controller="Account" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                            <i class="fa-solid fa-file-signature"></i><span>@user.Username</span>
+                        </a>
+                    }
+                    else
+                    {
+                        
+                    }
+
+                </div>
+            </div>
+        </nav>
+
+
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <div class="container-fluid">
+                <button class="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#sidebarMenu"
+                        aria-controls="sidebarMenu"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2731/2731533.png"
+                         height="25"
+                         alt=""
+                         loading="lazy" />
+                </a>
+                <a class="navbar-brand"  asp-area="" asp-controller="Home" asp-action="Index">
+                    InnoGotchi
+                </a>
+
+                @if (user == null)
+                {
+
+                    <ul class="navbar-nav ms-auto d-flex flex-row">
+                        <form asp-action="Index" asp-controller="Account">
+                            <input name="isAuth" value="true" type="hidden" id="signIn" class="form-control" />
+                            <button class="btn btn-primary btn-nerby" for="signIn">Sign In</button>
+                        </form>
+                        <form asp-action="Index" asp-controller="Account">
+                            <input name="isAuth" value="false" type="hidden" id="signIn" class="form-control" />
+                            <button class="btn btn-secondary btn-nerby" for="signIn">Sign Up</button>
+                        </form>
+                    </ul>
+                }
+                else
+                {
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+                           href="#"
+                           id="navbarDropdownMenuLink"
+                           role="button"
+                           data-mdb-toggle="dropdown"
+                           aria-expanded="false">
+                                <img src="@Url.Content(user.Image)"
+                                 class="rounded-circle avatar-img"
+                                 height="40"
+                                 width="40"
+                                 alt="img"
+                                 loading="lazy" />
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" asp-action="Index" asp-controller="Farm">My Farm</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-action="Settings" asp-controller="Account">Account Settings</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-action="Logout" asp-controller="Account">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                }
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container" style="margin-top:130px">
+        <main role="main" class="pb-3">
+            @await Html.PartialAsync("ModalWindow", modalMessages)
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/functions.js" asp-append-version="true"></script>
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
