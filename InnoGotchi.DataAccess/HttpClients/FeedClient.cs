@@ -26,7 +26,7 @@ namespace InnoGotchi.DataAccess.HttpClients
 
         public async Task RecalculatePetsNeeds(int farmId)
         {
-            await _httpServiceHelper.Post<int?>(null, $"feed/recalculate/{farmId}");
+            await _httpServiceHelper.Post<int?>(new FeedDto(), $"feed/recalculate/{farmId}");
         }
 
         public async Task<ResponseModel<double?>> FeedingFoodPeriod(int farmId)

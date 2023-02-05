@@ -3,6 +3,7 @@ using InnoGotchi.BusinessLogic.BusinessModels;
 using InnoGotchi.BusinessLogic.Interfaces;
 using InnoGotchi.Components.DtoModels;
 using InnoGotchi.Components.Enums;
+using InnoGotchi.DataAccess.Extensions;
 using InnoGotchi.DataAccess.Interfaces.HttpClients;
 using InnoGotchi.DataAccess.Models.ResponseModels;
 using InnoGotchi.WEB.Extensions;
@@ -36,13 +37,17 @@ namespace InnoGotchi.BusinessLogic.Services
             var result = new ResponseModel<int?>();
             var validationResult = await _petValidator.ValidateAsync(pet);
             if (!validationResult.IsValidResult<int?>(result))
+            {
                 return result;
+            }
 
             pet.VitalSign = new VitalSignDto();
 
             var createResponse = await _petClient.CreatePet(pet);
             if (createResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(createResponse.Error);
+            }
 
             result.Value = createResponse.Value;
             return result;
@@ -54,11 +59,15 @@ namespace InnoGotchi.BusinessLogic.Services
             var result = new ResponseModel<int?>();
             var validationResult = await _feedValidator.ValidateAsync(feedDto);
             if (!validationResult.IsValidResult<int?>(result))
+            {
                 return result;
+            }
 
             var drinkResponse = await _feedClient.DrinkPet(feedDto);
             if (drinkResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(drinkResponse.Error);
+            }
 
             result.Value = drinkResponse.Value;
             return result;
@@ -70,11 +79,15 @@ namespace InnoGotchi.BusinessLogic.Services
             var result = new ResponseModel<int?>();
             var validationResult = await _feedValidator.ValidateAsync(feedDto);
             if (!validationResult.IsValidResult<int?>(result))
+            {
                 return result;
+            }
 
             var feedResponse = await _feedClient.FeedPet(feedDto);
             if (feedResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(feedResponse.Error);
+            }
 
             result.Value = feedResponse.Value;
             return result;
@@ -87,12 +100,21 @@ namespace InnoGotchi.BusinessLogic.Services
 
             var countResponse = await _petClient.GetAllPetsCount();
             if (countResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(countResponse.Error);
+            }
 
             var pageResponse = await _petClient.GetAllPets(pageNum, sortFilter);
             if (pageResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(pageResponse.Error);
+            }
 
+            if (pageResponse.Value == null)
+            {
+                return result.SetAndReturnError(pageResponse.ValueIsNullError());
+            }
+            
             result.Value = new PageModel(pageResponse.Value, countResponse.Value);
             return result;
         }
@@ -104,7 +126,9 @@ namespace InnoGotchi.BusinessLogic.Services
 
             var petResponse = await _petClient.GetPetById(petId);
             if (petResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(petResponse.Error);
+            }
 
             result.Value = petResponse.Value;
             return result;
@@ -117,7 +141,14 @@ namespace InnoGotchi.BusinessLogic.Services
 
             var bodyPartsResponse = await _bodyPartClient.GetBodyParts();
             if (bodyPartsResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(bodyPartsResponse.Error);
+            }
+
+            if (bodyPartsResponse.Value == null)
+            {
+                return result.SetAndReturnError(bodyPartsResponse.ValueIsNullError());
+            }
 
             var bodyPartsDictionary = new Dictionary<string, List<BodyPartDto>>
             {

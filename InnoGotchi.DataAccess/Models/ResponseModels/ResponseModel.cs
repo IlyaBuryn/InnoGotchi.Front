@@ -1,4 +1,6 @@
-﻿namespace InnoGotchi.DataAccess.Models.ResponseModels
+﻿using InnoGotchi.DataAccess.Extensions;
+
+namespace InnoGotchi.DataAccess.Models.ResponseModels
 {
     public class ResponseModel<T>
     {
@@ -10,7 +12,9 @@
             get
             {
                 if (Errors != null && Errors.Count != 0)
+                {
                     return Errors[0];
+                }
                 return null;
             }
         }
@@ -21,11 +25,13 @@
             Errors = new List<string>();
         }
 
-        public ResponseModel(T? value, string message)
+        public ResponseModel(T? value, string? message)
         {
             Value = value;
-            Errors = new List<string>();
-            Errors.Add(message);
+            Errors = new List<string>
+            {
+                message == null ? string.Empty : message,
+            };
         }
 
         public ResponseModel()
@@ -41,25 +47,39 @@
 
         public bool ItHasErrors()
         {
-            if (Errors == null) 
+            if (Errors == null)
+            {
                 return true;
-            else if (Errors.Count != 0) 
+            }
+            else if (Errors.Count != 0)
+            {
                 return true;
-            else return false;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool ItHasErrorsOrValueIsNull()
         {
             if (Errors == null)
-                return true;
-            else if (Errors.Count != 0)
-                return true;
-            else if (Value == null)
             {
-                Errors.Add($"Client: Value ({nameof(Value)}) in Response model is null!");
                 return true;
             }
-            else return false;
+            else if (Errors.Count != 0)
+            {
+                return true;
+            }
+            else if (Value == null)
+            {
+                Errors.Add(this.ValueIsNullError(nameof(Value)));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

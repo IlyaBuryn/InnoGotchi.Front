@@ -28,7 +28,9 @@ namespace InnoGotchi.WEB.Controllers
             var result = await _farmService.GetUserFarm(user.Id);
 
             if (result.Value != null)
-                await HttpContext.SetSessionFarmData(new SessionFarm(result.Value.Id));
+            {
+                HttpContext.SetSessionFarmData(new SessionFarm(result.Value.Id));
+            }
 
             return View(result.Value);
         }
@@ -41,7 +43,9 @@ namespace InnoGotchi.WEB.Controllers
 
             var farmDetails = await _farmService.CheckFarmDetails(farm.Id);
             if (farmDetails.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, errorMessage: farmDetails.Errors[0]);
+            }
 
             return View(farmDetails.Value);
         }
@@ -51,7 +55,9 @@ namespace InnoGotchi.WEB.Controllers
         {
             var farmDetails = await _farmService.CheckFarmReadOnlyDetails(id);
             if (farmDetails.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, errorMessage: farmDetails.Errors[0]);
+            }
 
             return View(farmDetails.Value);
         }
@@ -80,7 +86,9 @@ namespace InnoGotchi.WEB.Controllers
         {
             var response = await _farmService.CreateFarm(model);
             if (response.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, errorMessage: response.Errors[0]);
+            }
 
             return RedirectToAction(nameof(Index));
         }

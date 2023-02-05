@@ -6,13 +6,13 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var isAut = HttpContextAccessor.HttpContext.Session.Get<bool>("IsAuthorization");
-    var modalMessages = HttpContextAccessor.HttpContext.GetModalMessages();
+    @*var modalMessages = HttpContextAccessor.HttpContext.GetModalMessages();*@
     ViewBag.Title = "Authorization";
 }
 
 <div class="row d-flex justify-content-center" style="margin-top: 50px">
 
-    @await Html.PartialAsync("ModalWindow", modalMessages)
+    @*@await Html.PartialAsync("ModalWindow", modalMessages)*@
 
     <div class="col-md-4">
         <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">

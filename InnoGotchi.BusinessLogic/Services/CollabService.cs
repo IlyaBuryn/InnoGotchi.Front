@@ -22,7 +22,9 @@ namespace InnoGotchi.BusinessLogic.Services
 
             var friendsResult = await _collabClient.GetCollabsByUser(userId);
             if (friendsResult.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(friendsResult.Error);
+            }
 
             result.Value = friendsResult.Value;
             return result;

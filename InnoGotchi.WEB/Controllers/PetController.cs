@@ -3,6 +3,7 @@ using InnoGotchi.BusinessLogic.Interfaces;
 using InnoGotchi.Components.DtoModels;
 using InnoGotchi.Components.Enums;
 using InnoGotchi.Components.Settings;
+using InnoGotchi.DataAccess.Extensions;
 using InnoGotchi.WEB.ActionFilters;
 using InnoGotchi.WEB.Extensions;
 using InnoGotchi.WEB.ViewModels;
@@ -31,7 +32,14 @@ namespace InnoGotchi.WEB.Controllers
         {
             var bodyPartsResponse = await _petService.BodyPartsForCreatingPetView();
             if (bodyPartsResponse.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, errorMessage: bodyPartsResponse.Error);
+            }
+
+            if (bodyPartsResponse.Value == null)
+            {
+                return this.ReturnDueToError(HttpContext, errorMessage: bodyPartsResponse.ValueIsNullError());
+            }
 
             int i = 1;
             foreach(var part in bodyPartsResponse.Value)
@@ -47,7 +55,14 @@ namespace InnoGotchi.WEB.Controllers
         {
             var petResponse = await _petService.PetDetails(pet);
             if (petResponse.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, errorMessage: petResponse.Error);
+            }
+
+            if (petResponse.Value == null)
+            {
+                return this.ReturnDueToError(HttpContext, errorMessage: petResponse.ValueIsNullError());
+            }
 
             return View(new PetViewModel(petResponse.Value, isReadOnly));
         }
@@ -59,9 +74,21 @@ namespace InnoGotchi.WEB.Controllers
 
             var pageModelResponse = await _petService.PetPage(page, sortType);
             if (pageModelResponse.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, errorMessage: pageModelResponse.Error);
+            }
 
-            var pageViewModel = new PageViewModel((int)pageModelResponse.Value.TotalPets, page, DefaultSettings.PageSize);
+            if (pageModelResponse.Value == null)
+            {
+                return this.ReturnDueToError(HttpContext, errorMessage: pageModelResponse.ValueIsNullError());
+            }
+
+            var count = pageModelResponse.Value.TotalPets;
+            if (count == null)
+            {
+                return this.ReturnDueToError(HttpContext, errorMessage: pageModelResponse.ValueIsNullError(nameof(count)));
+            }
+            var pageViewModel = new PageViewModel((int)count, page, DefaultSettings.PageSize);
             var petsModel = new PageIndexViewModel<PetDto> { 
                 PageViewModel = pageViewModel,
                 Items = pageModelResponse.Value.PetsOnPage,
@@ -118,7 +145,9 @@ namespace InnoGotchi.WEB.Controllers
 
             var response = await _petService.CreatePet(model);
             if (response.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, toView: nameof(Create), toController: "Pet", errorMessage: response.Error);
+            }
 
             HttpContext.SetModalMessage($"Pet was successfully created!", ModalMsgType.SuccessMessage);
             return RedirectToAction("Details", "Farm");

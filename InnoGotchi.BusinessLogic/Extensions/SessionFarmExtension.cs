@@ -11,7 +11,7 @@ namespace InnoGotchi.BusinessLogic.Extensions
             return httpContext.Session.Get<SessionFarm>("SessionFarm");
         }
 
-        public static async Task SetSessionFarmData(this HttpContext httpContext, SessionFarm farm)
+        public static void SetSessionFarmData(this HttpContext httpContext, SessionFarm farm)
         {
             httpContext.Session.Set<SessionFarm>("SessionFarm", farm);
         }

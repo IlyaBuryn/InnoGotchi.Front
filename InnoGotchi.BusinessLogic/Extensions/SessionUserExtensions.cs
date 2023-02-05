@@ -9,25 +9,36 @@ namespace InnoGotchi.BusinessLogic.Extensions
 
         public static SessionUser GetUserFromSession(this HttpContext httpContext)
         {
-            return httpContext.Session.Get<SessionUser>("SessionUser");
+            var sessionUser = httpContext.Session.Get<SessionUser>("SessionUser");
+            if (sessionUser == null)
+            {
+                return default;
+            }
+            return sessionUser;
         }
 
         public static void UpdateUserInfo(this SessionUser user, UserUpdateModel model)
         {
             user.Name = model.Name;
-            user.Surname = model.Surname;
-            user.Image = model.Image;
+            if (!string.IsNullOrEmpty(model.Surname))
+            {
+                user.Surname = model.Surname;
+            }
+            if (model.Image != null)
+            {
+                user.Image = model.Image;
+            }
         }
 
-        public static async Task SetSessionUserData(this HttpContext httpContext, SessionUser user)
+        public static void SetSessionUserData(this HttpContext httpContext, SessionUser user)
         {
             httpContext.Session.Set<SessionUser>("SessionUser", user);
         }
 
         public static void Logout(this HttpContext httpContext)
         {
-            httpContext.Session.Set<SessionUser>("SessionUser", null);
-            httpContext.Session.Set<SessionFarm>("SessionFarm", null);
+            httpContext.Session.Remove("SessionUser");
+            httpContext.Session.Remove("SessionFarm");
         }
     }
 }

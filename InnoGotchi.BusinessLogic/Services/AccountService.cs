@@ -9,6 +9,7 @@ using InnoGotchi.BusinessLogic.BusinessModels;
 using InnoGotchi.BusinessLogic.Extensions;
 using InnoGotchi.DataAccess.Interfaces.HttpClients;
 using AutoMapper;
+using InnoGotchi.DataAccess.Extensions;
 
 namespace InnoGotchi.BusinessLogic.Services
 {
@@ -39,16 +40,30 @@ namespace InnoGotchi.BusinessLogic.Services
         {
             var result = new ResponseModel<bool>();
 
-            var user = _httpContextAccessor.HttpContext.GetUserFromSession();
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                return result.SetAndReturnError(result.HttpContextError(string.Empty));
+            }
+            var user = httpContext.GetUserFromSession();
 
             var loginResponse = await _identityClient.SignIn(_mapper.Map<AuthenticateRequestDto>(model));
             if (loginResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(loginResponse.Error);
+            }
 
             var updateResponse = await _identityClient.UpdatePassword(_mapper.Map<IdentityUserDto>(model));
             if (updateResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(updateResponse.Error);
+            }
 
+            if (updateResponse.Value == null)
+            {
+                return result.SetAndReturnError(updateResponse.ValueIsNullError());
+            }
+            
             result.Value = (bool)updateResponse.Value;
             return result;
         }
@@ -58,7 +73,12 @@ namespace InnoGotchi.BusinessLogic.Services
         {
             var result = new ResponseModel<UserUpdateModel>();
 
-            var user = _httpContextAccessor.HttpContext.GetUserFromSession();
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
+            {
+                return result.SetAndReturnError(result.HttpContextError(string.Empty));
+            }
+            var user = httpContext.GetUserFromSession();
 
             var imagePath = string.Empty;
             if (image != null)
@@ -79,7 +99,9 @@ namespace InnoGotchi.BusinessLogic.Services
 
             var updateResponse = await _identityClient.UpdateUserInfo(_mapper.Map<IdentityUserDto>(model));
             if (updateResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(updateResponse.Error);
+            }
 
             result.Value = model;
             return result;
@@ -92,7 +114,9 @@ namespace InnoGotchi.BusinessLogic.Services
 
             var loginResponse = await _identityClient.SignIn(_mapper.Map<AuthenticateRequestDto>(model));
             if (loginResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(loginResponse.Error);
+            }
 
             result.Value = loginResponse.Value;
             return result;
@@ -105,7 +129,9 @@ namespace InnoGotchi.BusinessLogic.Services
 
             var registerResponse = await _identityClient.SignUp(_mapper.Map<IdentityUserDto>(model));
             if (registerResponse.ItHasErrorsOrValueIsNull())
+            {
                 return result.SetAndReturnError(registerResponse.Error);
+            }
 
             result.Value = registerResponse.Value;
             return result;

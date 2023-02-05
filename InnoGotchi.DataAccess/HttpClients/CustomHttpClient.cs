@@ -85,9 +85,6 @@ namespace InnoGotchi.DataAccess.HttpClients
             }
         }
 
-
-
-
         private string MakeUri(string path)
         {
             return _configuration.GetSection("InnoGotchiAPI").Value + path;
@@ -107,7 +104,8 @@ namespace InnoGotchi.DataAccess.HttpClients
             }
 
             var errorMessage = JsonConvert.DeserializeObject<ErrorResponse>(apiResponse);
-            return new ResponseModel<U>(default, errorMessage?.Errors?.FirstOrDefault());
+            var error = errorMessage?.Errors?.FirstOrDefault();
+            return new ResponseModel<U>(default, error);
         }
 
         private StringContent MakeContent(T model)

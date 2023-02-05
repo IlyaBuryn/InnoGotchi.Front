@@ -7,13 +7,17 @@ namespace InnoGotchi.BusinessLogic.Extensions
     {
         public static void Set<T>(this ISession session, string key, T value)
         {
-            if (value is string && value != null)
-                session.SetString(key, JsonConvert.SerializeObject((value as string).Replace("\"", "")));
+            if (value is string strValue && strValue != null)
+            {
+                session.SetString(key, JsonConvert.SerializeObject(strValue.Replace("\"", "")));
+            }
             else
+            {
                 session.SetString(key, JsonConvert.SerializeObject(value));
+            }
         }
 
-        public static T Get<T>(this ISession session, string key)
+        public static T? Get<T>(this ISession session, string key)
         {
 
             var value = session.GetString(key);

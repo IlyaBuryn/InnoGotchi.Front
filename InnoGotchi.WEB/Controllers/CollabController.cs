@@ -24,8 +24,10 @@ namespace InnoGotchi.WEB.Controllers
 
             var result = await _collabService.GetUserCollabs(user.Id);
             if (result.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, toController: "Collab", errorMessage: result.Errors[0]);
-            
+            }
+
             return View(result.Value);
         }
     }

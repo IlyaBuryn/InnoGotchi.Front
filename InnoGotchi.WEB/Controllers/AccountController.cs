@@ -2,6 +2,7 @@
 using InnoGotchi.BusinessLogic.Extensions;
 using InnoGotchi.BusinessLogic.Interfaces;
 using InnoGotchi.BusinessLogic.SessionEntities;
+using InnoGotchi.DataAccess.Extensions;
 using InnoGotchi.WEB.ActionFilters;
 using InnoGotchi.WEB.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -64,9 +65,16 @@ namespace InnoGotchi.WEB.Controllers
         {
             var result = await _accountService.SignIn(model);
             if (result.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, toController: "Account", errorMessage: result.Errors[0]);
+            }
 
-            await HttpContext.SetSessionUserData(new SessionUser(result.Value));
+            if (result.Value == null)
+            {
+                return this.ReturnDueToError(HttpContext, toController: "Account", errorMessage: result.ValueIsNullError());
+            }
+
+            HttpContext.SetSessionUserData(new SessionUser(result.Value));
 
             HttpContext.Response.Cookies.Append("UserJwtToken", result.Value.Token,
                 new CookieOptions { MaxAge = TimeSpan.FromMinutes(60) });
@@ -81,7 +89,9 @@ namespace InnoGotchi.WEB.Controllers
         {
             var result = await _accountService.SignUp(model);
             if (result.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, toController: "Account", isAuth: false, errorMessage: result.Errors[0]);
+            }
 
             HttpContext.SetModalMessage("You have registered a new account. Please sign in using your new credentials.", ModalMsgType.JustMessage);
             return RedirectToAction("Index", "Home");
@@ -98,10 +108,17 @@ namespace InnoGotchi.WEB.Controllers
 
             var result = await _accountService.ChangeUserInfo(model, image);
             if (result.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, toView: nameof(ChangeUserInfo), toController: "Account", errorMessage: result.Errors[0]);
+            }
+
+            if (result.Value == null)
+            {
+                return this.ReturnDueToError(HttpContext, toView: nameof(ChangeUserInfo), toController: "Account", errorMessage: result.ValueIsNullError());
+            }
 
             user.UpdateUserInfo(result.Value);
-            await HttpContext.SetSessionUserData(user);
+            HttpContext.SetSessionUserData(user);
 
             HttpContext.SetModalMessage("User Name, Surname and Avatar was successfully updated! ", ModalMsgType.SuccessMessage);
             return RedirectToAction(nameof(Settings));
@@ -117,8 +134,10 @@ namespace InnoGotchi.WEB.Controllers
 
             var result = await _accountService.ChangePassword(model);
             if (result.ItHasErrors())
+            {
                 return this.ReturnDueToError(HttpContext, toView: nameof(ChangePasswordInfo),
-                    toController: "Account", isAuth: false,  errorMessage: result.Errors[0]);
+                    toController: "Account", isAuth: false, errorMessage: result.Errors[0]);
+            }
 
             HttpContext.SetModalMessage("Password was successfully updated!", ModalMsgType.SuccessMessage);
             return RedirectToAction(nameof(Settings));

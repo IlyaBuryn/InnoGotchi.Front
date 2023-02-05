@@ -13,6 +13,9 @@ namespace InnoGotchi.WEB.Utility
         {
             ModalMsgType = modalMsgType;
             Message = message;
+
+            Color = string.Empty;
+            Title = string.Empty;
             SetInfo();
 
         }
